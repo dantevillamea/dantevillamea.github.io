@@ -1,0 +1,292 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: #A0DBF2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    background-color: #011C40;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1em;
+    position: fixed;
+}
+
+.logo {
+    height: 60px;
+}
+
+/* Navigation */
+nav {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin-right: 20px;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+li a.active, li a:hover {
+    background: #000090;
+    transition: 0.5s;
+}
+
+/* Menu Hamburguesa */
+#check {
+    display: none;
+}
+
+.checkbtn {
+    display: none;
+    cursor: pointer;
+}
+
+.checkbtn i {
+    font-size: 24px;
+    color: #fff;
+}
+
+/* Mobile styles */
+@media (max-width: 858px) {
+    .checkbtn {
+        display: block;
+    }
+
+    nav ul {
+        position: fixed;
+        background-color: #011C40;
+        top: 60px;
+        left: -100%;
+        flex-direction: column;
+        width: 100%;
+        transition: left 0.3s ease;
+    }
+
+    nav ul li {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    #check:checked ~ ul {
+        left: 0;
+    }
+
+    nav ul li a {
+        padding: 15px;
+        font-size: 18px;
+    }
+}
+
+/* Banner */
+.banner {
+    width: 80%;
+    height: calc(100vh - 5em);
+    background-color: #A0DBF2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-banner {
+    font-size: 2.5em;
+    color: #011C40;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.btn-banner {
+    background-color: #fff;
+    padding: 1em 2em;
+    color: #011C40;
+    border-radius: 0.5em;
+    text-decoration: none;
+    margin: 1em;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.btn-banner:hover {
+    background-color: #e68071;
+    transition: 0.5s;
+}
+
+/* Article */
+.article {
+    width: 80%;
+    background-color: #011C40;
+    padding: 20px;
+    border-radius: 1em;
+    color: #A0DBF2;
+    margin-bottom: 150px;
+    padding:80px;
+}
+
+.title-article {
+    font-size: 3em;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.paragraph-article {
+    font-size: 1.5em;
+    text-align: justify;
+    margin: 1em 0;
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 25px;
+    margin: 10px;
+}
+
+/* Services */
+/* Services */
+.services {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #f4f4f4;
+    padding: 80px 0;  /* Reducido para un mejor ajuste */
+    border-radius: 20px;
+    text-align: center;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px; /* Espacio entre las tarjetas */
+    max-width: 1200px; /* Limita el ancho del contenedor para mejor centrado */
+    width: 100%;
+    margin-top: 50px; /* Espacio superior */
+}
+
+.service-card {
+    flex: 1 1 calc(33.33% - 40px); /* Asegura que las tarjetas se distribuyan de forma equitativa */
+    max-width: 300px; /* Limita el tamaño máximo de cada tarjeta */
+    margin: 0; /* Elimina márgenes laterales */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.service-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px; /* Espacio entre la imagen y el texto */
+}
+
+.service-card h3 {
+    font-size: 1.5em;
+    color: #011C40;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 1em;
+    color: #333;
+    line-height: 1.5;
+}
+/*inicio de footer*/
+.pie-pagina{
+    width: 100%;
+    background-color: #fcfcfc;
+    margin-top: 70px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.pie-pagina .grupo-1{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 50px;
+    padding: 45px 0px;
+    text-align: center;
+    justify-content: center;
+}
+.pie-pagina .grupo-1 .box figure{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.pie-pagina .grupo-1 .box figure img{
+    width: 250px;
+
+}
+.pie-pagina .grupo-1 .box h2{
+    color: #011C40;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+.pie-pagina .grupo-1 .box p{
+    color: #0f0f0f;
+    margin-bottom: 10px;
+}
+.pie-pagina .grupo-1 .red-social a{
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    color: aqua;
+    margin-right: 10px;
+    background-color: #0d0330;
+    text-align: center;
+    transition: all 300ms ease;
+}
+.pie-pagina .grupo-1 .red-social a:hover{
+    color: rgb(0, 255, 55);
+}
+html {
+    scroll-behavior: smooth;
+}
+
