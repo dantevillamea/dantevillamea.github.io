@@ -1,407 +1,43 @@
-    * {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    width: 100%;
-    height: 100%;
-    background-color: #A0DBF2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Header */
-.header {
-    width: 100%;
-    background-color: #011C40;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1em;
-    position: fixed;
-}
-
-.logo {
-    height: 60px;
-}
-
-/* Navigation */
-nav {
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    margin-right: 20px;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 15px;
-    border-radius: 3px;
-    text-transform: uppercase;
-}
-
-li a.active, li a:hover {
-    background: #000090;
-    transition: 0.5s;
-}
-
-/* Menu Hamburguesa */
-#check {
-    display: none;
-}
-
-.checkbtn {
-    display: none;
-    cursor: pointer;
-}
-
-.checkbtn i {
-    font-size: 24px;
-    color: #fff;
-}
-
-/* Mobile styles */
-@media (max-width: 858px) {
-    .checkbtn {
-        display: block;
-    }
-
-    nav ul {
-        position: fixed;
-        background-color: #011C40;
-        top: 60px;
-        left: -100%;
-        flex-direction: column;
-        width: 100%;
-        transition: left 0.3s ease;
-    }
-
-    nav ul li {
-        margin: 20px 0;
-        text-align: center;
-    }
-
-    #check:checked ~ ul {
-        left: 0;
-    }
-
-    nav ul li a {
-        padding: 15px;
-        font-size: 18px;
-    }
-    .ad-iframe {
-        width: 300px;
-        height: 600px;
-    }
-    .services {
-        padding: 40px 10px;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center; 
-        justify-content: center;
-        gap: 20px; 
-        width: 100%; 
-    }
-
-
-    .service-card {
-        width: 90%;
-        padding: 15px;
-        font-size: 13px;
-        background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center; 
-        text-align: center;
-    }
-
-    .service-card h3 {
-        font-size: 1.2em;
-    }
-
-    .service-card p {
-        font-size: 0.85em;
-    }
-    .formulario-footer {
-        padding: 15px;
-        max-width: 100%;
-    }
-}
-
-/* Banner */
-.banner {
-    width: 80%;
-    height: calc(100vh - 5em);
-    background-color: #A0DBF2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.title-banner {
-    font-size: 2.5em;
-    color: #011C40;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-.btn-banner {
-    background-color: #fff;
-    padding: 1em 2em;
-    color: #011C40;
-    border-radius: 0.5em;
-    text-decoration: none;
-    margin: 1em;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.btn-banner:hover {
-    background-color: #e68071;
-    transition: 0.5s;
-}
-
-/* Article */
-.article {
-    width: 80%;
-    background-color: #011C40;
-    padding: 20px;
-    border-radius: 1em;
-    color: #A0DBF2;
-    margin-bottom: 150px;
-    padding:80px;
-}
-
-.title-article {
-    font-size: 3em;
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.paragraph-article {
-    font-size: 1.5em;
-    text-align: justify;
-    margin: 1em 0;
-    text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-
-.contenedor {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-}
-
-.img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    border-radius: 25px;
-    margin: 10px;
-}
-
-
-/* Services */
-.services {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 80px 0;  
-    border-radius: 20px;
-    text-align: center;
-    font-size: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px; 
-    max-width: 1200px; 
-    width: 100%;
-    margin-top: 50px; 
-}
-
-.service-card {
-    flex: 1 1 calc(33.33% - 40px); 
-    max-width: 300px;
-    margin: 0;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-size: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.service-card img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px; 
-}
-
-.service-card h3 {
-    font-size: 1.5em;
-    color: #011C40;
-    margin-bottom: 10px;
-}
-
-.service-card p {
-    font-size: 1em;
-    color: #333;
-    line-height: 1.5;
-}
-/*inicio de footer*/
-.pie-pagina{
-    width: 100%;
-    background-color: #fcfcfc;
-    margin-top: 70px;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-}
-.pie-pagina .grupo-1{
-    width: 100%;
-    max-width: 1200px;
-    margin: auto;
-    grid-template-columns: repeat(3,1fr);
-    grid-gap: 50px;
-    padding: 45px 0px;
-    text-align: center;
-    justify-content: center;
-}
-.pie-pagina .grupo-1 .box figure{
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.pie-pagina .grupo-1 .box figure img{
-    width: 250px;
-
-}
-.pie-pagina .grupo-1 .box h2{
-    color: #011C40;
-    font-size: 20px;
-    margin-bottom: 25px;
-}
-.pie-pagina .grupo-1 .box p{
-    color: #0f0f0f;
-    margin-bottom: 10px;
-}
-.pie-pagina .grupo-1 .red-social a{
-    display: inline-block;
-    text-decoration: none;
-    width: 45px;
-    height: 45px;
-    line-height: 45px;
-    color: aqua;
-    margin-right: 10px;
-    background-color: #0d0330;
-    text-align: center;
-    transition: all 300ms ease;
-}
-.pie-pagina .grupo-1 .red-social a:hover{
-    color: rgb(0, 255, 55);
-}
-html {
-    scroll-behavior: smooth;
-}
-.ad-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f4;
+    background-color: transparent; 
 }
 
-.ad-iframe {
+.ad-container {
     width: 728px;
     height: 90px;
-    max-width: 1200px; 
-    height: 90;
-    aspect-ratio: 16/9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.formulario-footer {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f3f3f3;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    justify-content: space-between; 
+    background-color: #011C40;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 10px; 
 }
 
-
-.formulario-footer input,
-.formulario-footer textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    transition: border-color 0.3s ease;
+.ad-logo {
+    width: 190px; 
+    height: 60  px;
 }
 
-.formulario-footer input:focus,
-.formulario-footer textarea:focus {
-    border-color: #007bff;
-    outline: none;
+.ad-text {
+    font-size: 16px; 
+    color: aliceblue; 
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: right; 
 }
 
-
-.formulario-footer textarea {
-    height: 120px;
-    resize: none;
+.ad-link {
+    color: aliceblue; 
+    text-decoration: none; 
 }
 
-
-.formulario-footer button {
-    padding: 12px;
-    background-color: #0d0330;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.ad-link:hover {
+    text-decoration: underline; 
+    color: #0056b3;
 }
 
-.formulario-footer button:hover {
-    background-color: #0056b3;
-}
-.grupo-2 {
-    text-align: center; 
-    margin: 20px 0; 
-}
