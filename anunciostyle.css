@@ -1,4 +1,4 @@
-
+/* Estilos generales para computadoras (728x90px) */
 body {
     margin: 0;
     padding: 0;
@@ -40,6 +40,32 @@ body {
 .ad-link:hover {
     text-decoration: underline; 
     color: #0056b3;
+}
+
+/* Adaptación para celulares (300x600px) */
+@media only screen and (max-width: 728px) {
+    .ad-container {
+        width: 300px;
+        height: 600px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .ad-logo {
+        width: 80%;
+        height: auto;
+    }
+
+    .ad-text {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .ad-link {
+        font-size: 20px;
+    }
 }
 
 @media only screen and (max-width: 858px) {
