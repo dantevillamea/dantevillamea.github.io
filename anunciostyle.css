@@ -1,3 +1,4 @@
+
 body {
     margin: 0;
     padding: 0;
@@ -21,7 +22,7 @@ body {
 
 .ad-logo {
     width: 190px; 
-    height: 60  px;
+    height: auto;
 }
 
 .ad-text {
@@ -39,5 +40,30 @@ body {
 .ad-link:hover {
     text-decoration: underline; 
     color: #0056b3;
+}
+
+@media only screen and (max-width: 858px) {
+    .ad-container {
+        width: 300px;
+        height: 600px;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .ad-logo {
+        width: 80%;
+        height: auto;
+    }
+
+    .ad-text {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .ad-link {
+        font-size: 20px;
+    }
 }
 
