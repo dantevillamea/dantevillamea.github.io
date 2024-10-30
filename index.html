@@ -33,10 +33,20 @@
         <h2 class="title-article">Sobre nosotros</h2>
         <p class="paragraph-article">Con más de 25 años de actividad profesional, hemos tenido como premisa la superación permanente en la atención personalizada a nuestros clientes y la actualización profesional y técnica. Junto a nuestro excelente equipo.</p>
         <div class="contenedor">
-            <img src="escritura_iaf_coviara_1_1.jpeg" class="img" alt="Imagen 1">
-            <img src="escritura_iaf_coviara_2_0_1.jpeg" class="img" alt="Imagen 2">
+            <img src="Galeria/escritura_iaf_coviara_1_1.jpeg" class="img gallery-item" alt="Imagen 1">
+            <img src="Galeria/escritura_iaf_coviara_2_0_1.jpeg" class="img gallery-item" alt="Imagen 2">
         </div>
     </section>
+    
+    
+    <div class="modal" id="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-nav">
+            <span class="prev">&#10094;</span>
+            <span class="next">&#10095;</span>
+        </div>
+    </div>
 
     <section class="services" id="servicios">
         <h2>Servicios</h2>
@@ -125,6 +135,41 @@
         item.addEventListener('click', () => {
             document.getElementById('check').checked = false; 
         });
+    });
+</script>
+<script>
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImage");
+    const images = document.querySelectorAll(".gallery-item");
+    let currentIndex = 0;
+
+    function openModal(index) {
+        modal.style.display = "block";
+        modalImg.src = images[index].src;
+        currentIndex = index;
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    function showImage(direction) {
+        currentIndex = (currentIndex + direction + images.length) % images.length;
+        modalImg.src = images[currentIndex].src;
+    }
+
+    document.querySelectorAll(".gallery-item").forEach((img, index) => {
+        img.addEventListener("click", () => openModal(index));
+    });
+
+    document.querySelector(".close").addEventListener("click", closeModal);
+    document.querySelector(".prev").addEventListener("click", () => showImage(-1));
+    document.querySelector(".next").addEventListener("click", () => showImage(1));
+
+    window.addEventListener("click", (event) => {
+        if (event.target == modal) {
+            closeModal();
+        }
     });
 </script>
 
