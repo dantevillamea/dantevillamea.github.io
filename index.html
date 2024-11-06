@@ -173,5 +173,23 @@
     });
 </script>
 
+<a href="#inicio" class="back-to-top" id="backToTop">
+    &#8679;
+</a>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const backToTopButton = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) { // Mostrar cuando se ha desplazado hacia abajo
+                backToTopButton.classList.add("show");
+            } else {
+                backToTopButton.classList.remove("show");
+            }
+        });
+    });
+</script>
+
+
 </body>
 </html>
