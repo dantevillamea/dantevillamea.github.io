@@ -462,3 +462,30 @@ html {
 .prev, .next {
     font-weight: bold;
 }
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; 
+    background-color: #011C40;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-decoration: none;
+    line-height: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+}
+
+.back-to-top:hover {
+    background-color: #000090;
+}
+
+
+.back-to-top.show {
+    display: block;
+}
