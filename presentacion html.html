@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación de Examen - Proyecto Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #011C40;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            height: 80px;
+        }
+
+        h1 {
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+
+        .tab-container {
+            display: flex;
+            background-color: #f1f1f1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 15px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            border-right: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab:last-child {
+            border-right: none;
+        }
+
+        .tab.active {
+            background-color: #011C40;
+            color: white;
+        }
+
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2 {
+            color: #011C40;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+
+        .gallery-container {
+            position: relative;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .gallery-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            user-select: none;
+        }
+
+        .nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .nav-button.prev {
+            left: 10px;
+        }
+
+        .nav-button.next {
+            right: 10px;
+        }
+
+        #wireframes img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        #diseno img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+        #conclusion img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Presentación del Proyecto Web</h1>
+        <img src="galeria/logo-escribania-3.png" class="logo" alt="Escribanía Sepliarsky">
+    </header>
+
+    <div class="container">
+
+        <div class="tab-container">
+            <div class="tab active" onclick="openTab('info')">Información sobre la Página</div>
+            <div class="tab" onclick="openTab('wireframes')">Wireframes y mapa de sitio</div>
+            <div class="tab" onclick="openTab('diseno')">Diseño</div>
+            <div class="tab" onclick="openTab('resultados')">Resultados</div>
+            <div class="tab" onclick="openTab('conclusion')">Conclusión</div>
+        </div>
+
+
+        <div id="info" class="tab-content active">
+            <h2>Información sobre la Página</h2>
+            <p>
+                La página web fue desarrollada con el objetivo de proporcionar una experiencia de usuario accesible y funcional.
+                Su propósito es ofrecer a los visitantes una navegación clara y una interacción amigable con el contenido. 
+            </p>
+            <p>
+                El objetivo de la página es brindar la información relevante de "Escribania Sepliarsky" para que todo el público que navegue a través de la página conozca a los escribanos, servicios e información necesaria para poder adquirir estos servicios. 
+            </p>
+            <p>
+                <strong>Funcionalidades Clave:</strong> Galería de imágenes, formulario de contacto, video que se abre en una nueva pestaña, botón de desplazamiento hacia arriba y animaciones en los botones.
+            </p>
+            <p>
+                <strong>Optimización para Dispositivos:</strong> La página es responsive y se adapta a diferentes tamaños de pantalla tanto de móviles como de computadoras.
+            </p>
+
+
+            <div class="gallery-container">
+                <button class="nav-button prev" onclick="changeImage(-1)">&#10094;</button>
+                <img id="galleryImage" src="galeria/Formulario.png" alt="Vista previa de la galería">
+                <button class="nav-button next" onclick="changeImage(1)">&#10095;</button>
+            </div>
+        </div>
+
+        <div id="wireframes" class="tab-content">
+            <h2>Mapa de sitio</h2>
+            <p>
+                Un mapa de sitio proporciona información sobre los elementos de un sitio web, así como la relación entre ellos. Estos mapas son útiles para visualizar la estructura del sitio.
+            </p>
+            <img src="galeria/mapadesitio.png" alt="Wireframe del Proyecto">
+            <h2>Wireframes</h2>
+            <p>
+                Los wireframes muestran la estructura básica de la página antes del desarrollo. Ayudaron a definir la organización de los elementos y asegurar un flujo de navegación intuitivo.
+                En esta sección se presentan los bocetos iniciales.
+            </p>
+            <img src="galeria/wireframem.png" alt="Wireframe del Proyecto">
+            <img src="galeria/wireframec.png" alt="Wireframe del Proyecto">
+        </div>
+
+        <div id="diseno" class="tab-content">
+            <h2>Información sobre el Diseño</h2>
+            <p>
+                <strong>Paleta de Colores:</strong> Colores fríos y profesionales, como el azul oscuro (#011C40) y tonos grises claros.
+            </p>
+            <p>
+                <strong>Tipografía:</strong> Tipografía limpia y fácil de leer para una apariencia profesional. La fuente utilizada es: 'Trebuchet MS'
+            </p>
+            <p>
+                <strong>Iconografía:</strong> Iconos simples y de fácil comprensión que mejoran la navegación y brindan orientación visual. Asi tambien se utiliza el logo de "Escribania sepliarsky" varias veces en la web.
+            </p>
+            <p>
+                <strong>Accesibilidad:</strong> Considere la accesibilidad de todos los elementos, como el contraste de colores y el tamaño de las fuentes. 
+            </p>
+            <img src="galeria/Diseño.png" alt="Diseño del Proyecto">
+            <p>
+                Imagen donde se muestra colores, tipografia, iconos y logo.
+            </p>
+        </div>
+
+        <div id="resultados" class="tab-content">
+            <h2>Resultados</h2>
+            <p>
+                <strong>Informes:</strong> Se realizaron informes para marcar aciertos y errores de la pagina lo que marco una falta de un boton de desplazamiento hacia arriba lo que ayudaria a la navegacion a traves de la pagina que luego fue corregido.
+            </p>
+            <p>
+                Comentarios:
+            </p>
+            <p>
+                "Pondría una opción de volver hacia arriba, para hacer mas rápida la navegación"
+            </p>
+            <p>
+                "Sería bueno agregar un botón en algún lado para volver hacía arriba lo cual haría que todo sea más rápido y que el usuario pueda acceder fácilmente a la información" 
+            </p>             
+            <p> 
+                <strong>Resultados:</strong> Se puede observar que la pagina logro su objetivo en cuanto a idea, diseño, y proposito logrando que el usuario que ingrese a la pagina pueda navegar a traves de ella intuitivamente adquiriendo la informacion necesaria de "Escribania Sepliarsky" para que si se requiere proveerse de estos servicios el usuario pueda obtener la suficiente informacion para generar confianza acerca de esta empresa.
+            </p>
+            <section id="usabilidad">
+                <h1 class="title-banner">¡Bienvenido a Escribania Sepliarsky!</h1>
+
+                <video width="100%" controls>
+                    <source src="galeria/Usabilidad.mp4" type="video/mp4">
+                    Tu navegador no soporta la reproducción de videos.
+                </video>
+            </section>
+        </div>
+
+        <div id="conclusion" class="tab-content">
+            <h2>Conclusión</h2>
+            <p>
+                Este proyecto logró cumplir con sus objetivos de accesibilidad, funcionalidad y diseño. Algo que se fue trabajando mucho a lo largo de la cursada agregando clase a clase ciertas secciones y corrigiendo errores para que la pagina cumpla con todo esto.
+            </p>
+            <p>
+                <img src="galeria/gracias.jpg" alt="Gracias">
+            </p>
+        </div>
+    </div>
+
+    <script>
+
+        function openTab(tabId) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="openTab('${tabId}')"]`).classList.add('active');
+        }
+
+
+        const images = [
+            "galeria/Formulario.png",
+            "galeria/Galeria.png",
+            "galeria/Boton.png",
+            "galeria/Computadora.png",
+            "galeria/Movil.png"
+        ];
+        let currentImageIndex = 0;
+
+        function changeImage(direction) {
+            currentImageIndex = (currentImageIndex + direction + images.length) % images.length;
+            document.getElementById('galleryImage').src = images[currentImageIndex];
+        }
+    </script>
+
+</body>
+</html>
