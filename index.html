@@ -44,11 +44,11 @@
     
     
     <div class="modal" id="modal">
-        <span class="close">&times;</span>
+        <span class="close" onclick="closeModal()">&times;</span>
         <img class="modal-content" id="modalImage">
         <div class="modal-nav">
-            <span class="prev">&#10094;</span>
-            <span class="next">&#10095;</span>
+            <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+            <span class="next" onclick="changeImage(1)">&#10095;</span>
         </div>
     </div>
 
