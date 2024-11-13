@@ -489,3 +489,10 @@ html {
 .back-to-top.show {
     display: block;
 }
+.mensaje-enviado {
+    display: none;
+    color: green;
+    font-size: 1.1em;
+    margin-top: 10px;
+    text-align: center;
+}
