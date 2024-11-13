@@ -114,12 +114,13 @@
         <div class="grupo-2">
                 <h2>Contáctanos</h2>
 
-            <form action="#" method="POST" class="formulario-footer">
-                <input type="text" name="nombre" placeholder="Tu nombre" required>
-                <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
+                <form action="#" method="POST" class="formulario-footer" onsubmit="return mostrarMensajeEnviado()">
+                    <input type="text" name="nombre" placeholder="Tu nombre" required>
+                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+                    <button type="submit">Enviar</button>
+                    <p id="mensaje-enviado" class="mensaje-enviado">Enviado correctamente</p>
+                </form>
         </div>
 
         <p>&copy; 2024 <a href="https://dantevillamea.github.io/presentacion.html" target="_blank" style="color: blue;">Escribania Sepliarsky</a>. Todos los derechos reservados.</p>
@@ -188,6 +189,11 @@
             }
         });
     });
+function mostrarMensajeEnviado() {
+    document.getElementById('mensaje-enviado').style.display = 'block';
+    return false; // Previene el envío real del formulario para que el mensaje aparezca al instante
+}
+
 </script>
 
 
