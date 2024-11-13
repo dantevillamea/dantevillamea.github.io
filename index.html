@@ -33,8 +33,12 @@
         <h2 class="title-article">Sobre nosotros</h2>
         <p class="paragraph-article">Con más de 25 años de actividad profesional, hemos tenido como premisa la superación permanente en la atención personalizada a nuestros clientes y la actualización profesional y técnica. Junto a nuestro excelente equipo.</p>
         <div class="contenedor">
-            <img src="escritura_iaf_coviara_1_1.jpeg" class="img gallery-item" alt="Imagen 1">
-            <img src="escritura_iaf_coviara_2_0_1.jpeg" class="img gallery-item" alt="Imagen 2">
+            <a href="#" class="gallery-item" data-full="Galeria/escritura_iaf_coviara_1.jpeg">
+                <img src="Galeria/escritura_iaf_coviara_1_1.jpeg" class="img gallery-item" alt="Imagen 1">
+            </a>
+            <a href="#" class="gallery-item" data-full="Galeria/escritura_iaf_coviara_2_0.jpeg">
+                <img src="Galeria/escritura_iaf_coviara_2_0_1.jpeg" class="img gallery-item" alt="Imagen 2">
+            </a>
         </div>
     </section>
     
@@ -139,63 +143,74 @@
     });
 </script>
 <script>
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modalImage");
-    const images = document.querySelectorAll(".gallery-item");
-    let currentIndex = 0;
 
-    function openModal(index) {
-        modal.style.display = "block";
-        modalImg.src = images[index].src;
+const images = document.querySelectorAll('.gallery-item');
+let currentIndex = 0;
+
+
+images.forEach((img, index) => {
+    img.addEventListener('click', (e) => {
+        e.preventDefault(); 
         currentIndex = index;
-    }
-
-    function closeModal() {
-        modal.style.display = "none";
-    }
-
-    function showImage(direction) {
-        currentIndex = (currentIndex + direction + images.length) % images.length;
-        modalImg.src = images[currentIndex].src;
-    }
-
-    document.querySelectorAll(".gallery-item").forEach((img, index) => {
-        img.addEventListener("click", () => openModal(index));
+        openModal();
+        showImage(currentIndex);
     });
+});
 
-    document.querySelector(".close").addEventListener("click", closeModal);
-    document.querySelector(".prev").addEventListener("click", () => showImage(-1));
-    document.querySelector(".next").addEventListener("click", () => showImage(1));
-
-    window.addEventListener("click", (event) => {
-        if (event.target == modal) {
-            closeModal();
-        }
-    });
-</script>
-
-<a href="#inicio" class="back-to-top" id="backToTop">
-    &#8679;
-</a>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const backToTopButton = document.getElementById("backToTop");
-
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) { // Mostrar cuando se ha desplazado hacia abajo
-                backToTopButton.classList.add("show");
-            } else {
-                backToTopButton.classList.remove("show");
-            }
-        });
-    });
-function mostrarMensajeEnviado() {
-    document.getElementById('mensaje-enviado').style.display = 'block';
-    return false; // Previene el envío real del formulario para que el mensaje aparezca al instante
+function openModal() {
+    document.getElementById('modal').style.display = 'block';
 }
 
-</script>
 
+function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+}
+
+
+function showImage(index) {
+    const modalImage = document.getElementById('modalImage');
+    const fullImageSrc = images[index].getAttribute('data-full');
+    if (fullImageSrc) { 
+        modalImage.src = fullImageSrc;
+    }
+}
+
+
+function changeImage(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    showImage(currentIndex);
+}
+
+
+window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+
+window.onscroll = function() { toggleScrollTopBtn() };
+
+function toggleScrollTopBtn() {
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+}
+
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+</script>
+<button onclick="scrollToTop()" id="scrollTopBtn" title="Ir arriba">&#8679;</button>
 
 </body>
 </html>
