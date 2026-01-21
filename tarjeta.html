@@ -32,6 +32,9 @@
       width:100%;
       overflow: hidden;
     }
+    body{
+  min-height: 100dvh;
+}
     
     body{
       margin:0;
@@ -99,32 +102,37 @@
     }
 
     /* Contenedor principal */
-    .container{
-      width: 100%;
-      max-width: 320px;
-      height: auto;
-      min-height: 500px;
-      position: relative;
-      margin: 0 auto;
-      z-index: 10;
-    }
+.container{
+  width: 100%;
+  max-width: 320px;
+  height: min(640px, calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px));
+  position: relative;
+  margin: 0 auto;
+  z-index: 10;
+}
 
     /* Tarjetas */
-    .card{
-      width: 100%;
-      border-radius: var(--r);
-      background: var(--card);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.05);
-      overflow: visible; /* Cambiado de hidden a visible para que la línea no se corte */
-      position: absolute;
-      top: 0;
-      left: 0;
-      padding: 20px 20px calc(20px + var(--safe-bottom) + 80px);
-      display: flex;
-      flex-direction: column;
-      backdrop-filter: blur(10px);
-    }
+.card{
+  width: 100%;
+  height: 100%;
+  border-radius: var(--r);
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.05);
+
+  overflow: hidden;                /* el card corta bordes */
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+
+  /* padding normal */
+  padding: 20px;
+}
+
 
     /* CARD 1 - VIAJE EN EL TIEMPO */
     .card-1{
@@ -520,6 +528,13 @@
       .btn-replay{
         grid-column: span 1;
       }
+      .card-scroll{
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: calc(var(--safe-bottom) + 110px); /* espacio para barra Safari */
+}
+
     }
   </style>
 </head>
@@ -531,7 +546,8 @@
   <div class="container">
     <!-- CARD 1 - VIAJE EN EL TIEMPO -->
     <div class="card card-1" id="card1">
-      <div class="header">
+        <div class="card-scroll">
+               <div class="header">
         <div class="lock-badge">VIAJE EN EL TIEMPO</div>
         <h1 class="title">El Viaje de Vane</h1>
         <p class="subtitle">Acompañá su vuelo a través de los años</p>
@@ -572,9 +588,12 @@
         <span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO
       </button>
     </div>
+        </div>
+
 
     <!-- CARD 2 - INVITACIÓN -->
     <div class="card card-2" id="card2">
+      <div class="card-scroll">
       <div class="header">
         <div class="lock-badge" style="background: rgba(89,255,189,0.1); border-color: rgba(89,255,189,0.2);">
           🎉 ¡50 AÑOS CUMPLIDOS!
@@ -619,6 +638,8 @@
       </div>
     </div>
   </div>
+      </div>
+
 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
