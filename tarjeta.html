@@ -7,20 +7,17 @@
   <style>
     :root{
       --bg: #0a0a14;
-      --card: rgba(25, 25, 40, 0.9);
+      --card: rgba(30, 30, 45, 0.85);
       --txt: #ffffff;
       --muted: rgba(255,255,255,0.7);
       --accent: #ff4fd8;
       --accent2: #4fd8ff;
       --piscis: #6b8cff;
-      --piscis-light: #8ba6ff;
       --ok: #59ffbd;
-      --cake: #ffcf5a;
-      --balloon: #ff6b9d;
-      --shadow: 0 10px 40px rgba(0,0,0,0.5);
-      --r: 24px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --shadow: 0 10px 30px rgba(0,0,0,0.4);
+      --r: 20px;
+      --safe-top: env(safe-area-inset-top, 12px);
+      --safe-bottom: env(safe-area-inset-bottom, 12px);
     }
 
     *{ 
@@ -39,18 +36,17 @@
     body{
       margin:0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: linear-gradient(135deg, #0a0a14 0%, #15152a 100%);
+      background: linear-gradient(135deg, #0a0a14 0%, #151525 100%);
       color: var(--txt);
-      padding: var(--safe-top) 0 var(--safe-bottom);
+      padding: var(--safe-top) 16px var(--safe-bottom);
       display: flex;
       justify-content: center;
       align-items: center;
       -webkit-font-smoothing: antialiased;
       position: relative;
-      min-height: -webkit-fill-available;
     }
 
-    /* Fondo con símbolos de Piscis más visibles */
+    /* Fondo con símbolos de Piscis */
     .piscis-bg {
       position: fixed;
       top: 0;
@@ -59,26 +55,22 @@
       height: 100%;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.4; /* Más visible */
+      opacity: 0.35;
     }
 
     .piscis-symbol {
       position: absolute;
-      font-size: 32px; /* Más grande */
-      color: var(--piscis);
-      opacity: 0.25; /* Más visible */
-      animation: floatPiscis 30s infinite linear;
+      font-size: 28px;
+      color: #6b8cff;
+      opacity: 0.3;
+      animation: floatPiscis 25s infinite linear;
       pointer-events: none;
-      text-shadow: 0 0 15px rgba(107, 140, 255, 0.3);
-      filter: blur(0.5px);
+      text-shadow: 0 0 12px rgba(107, 140, 255, 0.4);
     }
 
     @keyframes floatPiscis {
       0% { transform: translate(0, 0) rotate(0deg); }
-      25% { transform: translate(50px, -30px) rotate(90deg); }
-      50% { transform: translate(100px, 20px) rotate(180deg); }
-      75% { transform: translate(30px, 50px) rotate(270deg); }
-      100% { transform: translate(0, 0) rotate(360deg); }
+      100% { transform: translate(80px, -80px) rotate(360deg); }
     }
 
     .star {
@@ -89,74 +81,52 @@
     }
 
     .star.small {
-      width: 2px;
-      height: 2px;
-      opacity: 0.6;
+      width: 1px;
+      height: 1px;
+      opacity: 0.5;
     }
 
     .star.medium {
-      width: 3px;
-      height: 3px;
-      opacity: 0.8;
-      box-shadow: 0 0 6px white;
-    }
-
-    .star.large {
-      width: 4px;
-      height: 4px;
-      opacity: 1;
-      box-shadow: 0 0 12px white, 0 0 20px var(--piscis-light);
+      width: 2px;
+      height: 2px;
+      opacity: 0.7;
+      box-shadow: 0 0 4px white;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.4; }
+      0%, 100% { opacity: 0.3; }
       50% { opacity: 1; }
     }
 
-    /* Líneas de conexión entre símbolos (opcional) */
-    .piscis-line {
-      position: absolute;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--piscis-light), transparent);
-      opacity: 0.15;
-      transform-origin: left center;
-    }
-
-    /* Contenedor principal - casi toda la pantalla */
+    /* Contenedor principal */
     .container{
       width: 100%;
-      max-width: 100%;
-      height: 100%;
+      max-width: 320px;
+      height: auto;
+      min-height: 500px;
       position: relative;
+      margin: 0 auto;
       z-index: 10;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
     }
 
-    /* Tarjetas - más grandes para pantalla completa */
+    /* Tarjetas */
     .card{
       width: 100%;
-      max-width: 400px;
-      height: auto;
-      min-height: 600px;
-      max-height: 85vh;
       border-radius: var(--r);
       background: var(--card);
-      border: 1px solid rgba(139, 166, 255, 0.2);
-      box-shadow: var(--shadow), 0 0 0 1px rgba(139, 166, 255, 0.1);
-      overflow: hidden;
-      position: relative;
-      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.05);
+      overflow: visible; /* Cambiado de hidden a visible para que la línea no se corte */
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(10px);
     }
 
-    /* CARD 1 - PREPARACIÓN DE LA FIESTA */
+    /* CARD 1 - VIAJE EN EL TIEMPO */
     .card-1{
       z-index: 2;
       opacity: 1;
@@ -165,29 +135,26 @@
     }
 
     .card-1.hidden{
-      display: none;
+      opacity: 0;
+      transform: translateY(-20px);
+      pointer-events: none;
     }
 
     /* CARD 2 - INVITACIÓN */
     .card-2{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      max-width: 400px;
-      z-index: 3;
+      z-index: 1;
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.5s ease;
+      transform: translateY(20px);
+      transition: transform 0.5s ease, opacity 0.5s ease;
     }
 
     .card-2.visible{
       opacity: 1;
+      transform: translateY(0);
       pointer-events: all;
     }
 
-    /* Encabezado común */
+    /* Encabezado */
     .header{
       text-align: center;
       margin-bottom: 24px;
@@ -195,428 +162,262 @@
 
     .lock-badge{
       display: inline-block;
-      font-size: 12px;
-      letter-spacing: 3px;
-      color: var(--piscis-light);
-      padding: 8px 16px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      padding: 6px 12px;
       border-radius: 20px;
-      background: rgba(107, 140, 255, 0.15);
-      margin-bottom: 20px;
-      border: 1px solid rgba(107, 140, 255, 0.3);
-      backdrop-filter: blur(10px);
+      background: rgba(255,79,216,0.1);
+      margin-bottom: 16px;
+      border: 1px solid rgba(255,79,216,0.2);
     }
 
     .title{
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, var(--piscis), var(--piscis-light));
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 2px 10px rgba(107, 140, 255, 0.3);
     }
 
     .subtitle{
-      font-size: 16px;
+      font-size: 14px;
       color: var(--muted);
-      line-height: 1.5;
-      max-width: 320px;
-      margin: 0 auto;
+      line-height: 1.4;
     }
 
-    /* Escena de preparación de la fiesta - más grande */
-    .party-scene {
+    /* Contenedor de la animación de vida */
+    .life-journey {
       position: relative;
-      height: 220px;
-      margin: 30px 0;
+      height: 180px;
+      margin: 20px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: visible;
-      flex: 1;
+      overflow: visible; /* Cambiado de hidden a visible */
     }
 
-    /* Fondo de la escena */
-    .scene-bg {
-      position: absolute;
+    /* Fondo de la línea de tiempo - EXTENDIDA PARA QUE NO SE CORTE */
+.timeline-container{
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;          /* margen interno para que no se corte */
+  overflow: visible;
+}
+
+
+
+    .timeline {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, rgba(25, 25, 45, 0.4), rgba(35, 35, 60, 0.2));
-      border-radius: 16px;
-      border: 1px solid rgba(139, 166, 255, 0.1);
-    }
-
-    /* Mesa para el pastel */
-    .table {
-      position: absolute;
-      bottom: 50px;
-      width: 140px;
-      height: 10px;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(139, 166, 255, 0.2));
-      border-radius: 5px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Pastel - más grande */
-    .cake {
-      position: absolute;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: all 0.3s ease;
-    }
-
-    .cake-base {
-      width: 80px;
-      height: 0px;
-      background: linear-gradient(to bottom, #ffcf5a, #ff9f5a);
-      border-radius: 12px 12px 0 0;
+      height: 4px;
+      background: linear-gradient(90deg, 
+        rgba(255, 79, 216, 0.3) 0%,
+        rgba(79, 216, 255, 0.3) 25%,
+        rgba(89, 255, 189, 0.3) 50%,
+        rgba(255, 207, 90, 0.3) 75%,
+        rgba(107, 140, 255, 0.3) 100%
+      );
+      border-radius: 2px;
       position: relative;
-      overflow: hidden;
-      transition: height 0.5s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .cake-layer {
+    /* Marcadores de edad */
+    .age-marker {
       position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: linear-gradient(to bottom, var(--piscis), var(--piscis-light));
-      border-radius: 10px 10px 0 0;
-      transition: height 0.5s ease;
-    }
-
-    .cake-top {
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90px;
-      height: 20px;
-      background: linear-gradient(to bottom, var(--accent), var(--accent2));
-      border-radius: 45px 45px 15px 15px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Velas - más visibles */
-    .candles-container {
-      position: absolute;
-      top: -35px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 12px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .candle {
-      width: 6px;
-      height: 0px;
-      background: linear-gradient(to bottom, #ffffff, #ffcf5a);
-      border-radius: 3px;
-      position: relative;
-      transition: height 0.5s ease;
-      box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-    }
-
-    .candle-flame {
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 8px;
-      height: 12px;
-      background: linear-gradient(to bottom, #ffff80, #ff7700);
-      border-radius: 50% 50% 20% 20%;
-      opacity: 0;
-      animation: flicker 1.2s infinite alternate;
-      filter: blur(0.5px);
-    }
-
-    @keyframes flicker {
-      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; }
-      50% { transform: translateX(-50%) scale(1.2); opacity: 1; }
-    }
-
-    /* Globos - más grandes */
-    .balloons-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    .balloon {
-      width: 40px;
-      height: 55px;
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      background: rgba(30, 30, 45, 0.95);
+      border: 2px solid rgba(255, 255, 255, 0.2);
       border-radius: 50%;
-      position: relative;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    @keyframes balloonBob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    
-    .balloon.active {
-      animation: balloonBob 3s ease-in-out infinite;
-    }
-
-    .balloon::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
       transform: translateX(-50%);
-      width: 2px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.6);
+      z-index: 5;
     }
 
-    .balloon.red {
-      background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff2f7d);
+    .age-marker.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #000;
+      border-color: var(--accent);
+      transform: translateX(-50%) scale(1.2);
     }
 
-    .balloon.blue {
-      background: radial-gradient(circle at 30% 30%, var(--piscis), #2f7dff);
+/* Marcadores posicionados dentro del padding */
+.age-marker.birth  { left: 14px; }
+.age-marker.teen   { left: 25%; }
+.age-marker.adult  { left: 50%; }
+.age-marker.mature { left: 75%; }
+.age-marker.fifty  { left: calc(100% - 14px); }
+
+
+    /* Avión emoji que se desplaza */
+    .airplane{
+      position:absolute;
+      top:-30px;
+      left:14px; /* arranca dentro del padding */
+      font-size:40px;
+      transform: translateY(0) rotate(0deg);
+      transition: left 0.25s ease, transform 0.2s ease;
+      z-index: 10;
     }
 
-    .balloon.green {
-      background: radial-gradient(circle at 30% 30%, #59ffbd, #2fff9d);
+    @keyframes floatPlane {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
     }
 
-    .balloon.yellow {
-      background: radial-gradient(circle at 30% 30%, #ffcf5a, #ffaf2a);
-    }
-
-    /* Confeti */
-    .confetti-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .confetti-piece {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      opacity: 0;
-      animation: confettiFloat 3s infinite ease-in-out;
-    }
-
-    @keyframes confettiFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
-      50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
-    }
-
-    /* Contador - más grande */
+    /* Contador y año actual */
     .counter-container{
       text-align: center;
-      margin: 25px 0;
+      margin: 20px 0;
+      position: relative;
     }
 
-    .counter-circle{
-      position: relative;
-      width: 160px;
-      height: 160px;
-      margin: 25px auto;
-    }
-    
-    .progress-ring{
-      width: 160px;
-      height: 160px;
-      transform: rotate(-90deg);
-      display: block;
-    }
-    
-    .ring-bg{
-      fill: none;
-      stroke: rgba(255,255,255,0.12);
-      stroke-width: 10;
-    }
-    
-    .ring-progress{
-      fill: none;
-      stroke: var(--piscis-light);
-      stroke-width: 10;
-      stroke-linecap: round;
-      transition: stroke-dashoffset 0.2s ease;
-      filter: drop-shadow(0 0 8px rgba(107, 140, 255, 0.4));
-    }
-    
     .counter{
-      font-size: 52px;
-      font-weight: 900;
-      background: linear-gradient(90deg, var(--piscis), var(--piscis-light));
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       margin-bottom: 8px;
       line-height: 1;
-      text-shadow: 0 2px 15px rgba(107, 140, 255, 0.3);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
     }
 
     .counter-label{
-      font-size: 14px;
+      font-size: 12px;
       color: var(--muted);
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .current-age {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .current-year {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent2);
     }
 
     /* Barra de progreso */
     .progress-bar{
-      height: 8px;
+      height: 6px;
       background: rgba(255,255,255,0.1);
-      border-radius: 4px;
+      border-radius: 3px;
       overflow: hidden;
-      margin: 20px 0;
-      border: 1px solid rgba(139, 166, 255, 0.1);
+      margin: 15px 0;
     }
 
     .progress-fill{
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, var(--piscis), var(--piscis-light));
-      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 3px;
       transition: width 0.2s ease;
-      box-shadow: 0 0 15px rgba(107, 140, 255, 0.4);
     }
 
-    /* Botón de preparación - más grande */
-    .prepare-btn{
+    /* Botón de viaje en el tiempo */
+    .time-travel-btn{
       width: 100%;
-      padding: 22px;
-      background: linear-gradient(135deg, var(--piscis), var(--piscis-light));
+      padding: 20px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       border: none;
-      border-radius: 18px;
+      border-radius: 16px;
       color: #000;
-      font-weight: 800;
-      font-size: 17px;
+      font-weight: 700;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 15px;
       position: relative;
       overflow: hidden;
       transition: transform 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(107, 140, 255, 0.3);
+      gap: 10px;
     }
 
-    .prepare-btn:active{
+    .time-travel-btn:active{
       transform: scale(0.98);
-    }
-
-    .prepare-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.7s;
-    }
-
-    .prepare-btn:hover::before {
-      left: 100%;
     }
 
     /* Información de la invitación */
     .info-grid{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin: 25px 0;
+      gap: 12px;
+      margin: 20px 0;
     }
 
     .info-item{
       background: rgba(255,255,255,0.05);
-      border-radius: 14px;
-      padding: 16px;
-      border: 1px solid rgba(139, 166, 255, 0.15);
-      transition: transform 0.3s ease;
-    }
-
-    .info-item:hover {
-      transform: translateY(-3px);
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(139, 166, 255, 0.3);
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
     }
 
     .info-label{
-      font-size: 11px;
+      font-size: 10px;
       color: var(--muted);
       text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 6px;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
     }
 
     .info-value{
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      color: white;
     }
 
     .dresscode{
-      background: rgba(89,255,189,0.15);
-      border: 1px solid rgba(89,255,189,0.3);
-      padding: 16px;
-      border-radius: 14px;
-      margin: 20px 0;
+      background: rgba(89,255,189,0.1);
+      border: 1px solid rgba(89,255,189,0.2);
+      padding: 12px;
+      border-radius: 12px;
+      margin: 16px 0;
       text-align: center;
-      font-size: 15px;
-      backdrop-filter: blur(10px);
+      font-size: 14px;
     }
 
-    /* Botones de acción - más grandes */
+    /* Botones de acción */
     .action-buttons{
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 25px;
+      gap: 12px;
+      margin-top: 20px;
     }
 
     .action-btn{
-      padding: 20px;
-      border-radius: 14px;
+      padding: 16px;
+      border-radius: 12px;
       border: none;
-      font-weight: 700;
-      font-size: 15px;
+      font-weight: 600;
+      font-size: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
       transition: transform 0.2s ease;
       text-decoration: none;
-      min-height: 56px;
     }
 
     .action-btn:active{
@@ -624,49 +425,42 @@
     }
 
     .btn-maps{
-      background: rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.1);
       color: white;
-      border: 1px solid rgba(139, 166, 255, 0.2);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .btn-confirm{
-      background: linear-gradient(135deg, var(--ok), #4fd8ff);
+      background: linear-gradient(135deg, var(--ok), var(--accent2));
       color: #000;
-      font-weight: 800;
-      box-shadow: 0 8px 25px rgba(89, 255, 189, 0.3);
     }
 
     .btn-replay{
       grid-column: span 2;
       background: rgba(255,255,255,0.05);
       color: white;
-      border: 1px solid rgba(139, 166, 255, 0.15);
-      margin-top: 12px;
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-top: 8px;
     }
 
     /* Toast */
     .toast{
       position: fixed;
-      bottom: calc(30px + var(--safe-bottom));
+      bottom: calc(20px + var(--safe-bottom));
       left: 50%;
       transform: translateX(-50%) translateY(20px);
       background: rgba(40,40,60,0.95);
-      backdrop-filter: blur(20px);
-      padding: 16px 24px;
-      border-radius: 14px;
-      border: 1px solid rgba(139, 166, 255, 0.3);
+      backdrop-filter: blur(10px);
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
       color: white;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 600;
       opacity: 0;
       pointer-events: none;
       transition: all 0.3s ease;
       z-index: 1000;
-      max-width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
     }
 
     .toast.show{
@@ -674,87 +468,57 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Responsive para pantallas más altas */
-    @media (min-height: 700px) {
-      .card {
-        min-height: 650px;
-        max-height: 80vh;
-        padding: 28px;
+    /* Responsive */
+    @media (max-height: 600px){
+      .container{
+        min-height: 460px;
       }
       
-      .party-scene {
-        height: 250px;
-        margin: 35px 0;
+      .card{
+        padding: 16px;
       }
       
-      .title {
-        font-size: 36px;
-      }
-      
-      .counter {
-        font-size: 64px;
-      }
-    }
-
-    @media (min-height: 800px) {
-      .card {
-        min-height: 700px;
-        max-height: 75vh;
-      }
-      
-      .party-scene {
-        height: 280px;
-      }
-    }
-
-    /* Ajustes para pantallas más anchas */
-    @media (min-width: 420px) {
-      .card {
-        max-width: 380px;
-      }
-    }
-
-    /* Ajustes para pantallas pequeñas */
-    @media (max-height: 600px) {
-      .card {
-        min-height: 550px;
-        max-height: 90vh;
-        padding: 20px;
-      }
-      
-      .party-scene {
-        height: 180px;
-        margin: 20px 0;
-      }
-      
-      .counter {
-        font-size: 48px;
-      }
-      
-      .prepare-btn {
-        padding: 18px;
-        font-size: 16px;
-      }
-    }
-
-    /* Landscape */
-    @media (orientation: landscape) and (max-height: 500px) {
-      .container {
-        padding: 10px;
-      }
-      
-      .card {
-        max-width: 90%;
-        min-height: 90vh;
-        max-height: 90vh;
-      }
-      
-      .party-scene {
+      .life-journey {
         height: 150px;
       }
       
-      .info-grid {
-        grid-template-columns: repeat(4, 1fr);
+      .timeline-container {
+        width: 100%;
+        padding: 0 14px;
+        overflow: visible;
+      }
+      
+      .counter{
+        font-size: 42px;
+      }
+      
+      .time-travel-btn{
+        padding: 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 350px){
+      body{
+        padding: var(--safe-top) 12px var(--safe-bottom);
+      }
+      
+      .timeline-container {
+        width: 100%;
+        padding: 0 14px;
+        overflow: visible;
+      }
+      
+      .info-grid{
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons{
+        grid-template-columns: 1fr;
+      }
+      
+      .btn-replay{
+        grid-column: span 1;
       }
     }
   </style>
@@ -765,81 +529,58 @@
   <div class="piscis-bg" id="piscisBg"></div>
 
   <div class="container">
-    <!-- CARD 1 - PREPARACIÓN DE LA FIESTA -->
+    <!-- CARD 1 - VIAJE EN EL TIEMPO -->
     <div class="card card-1" id="card1">
       <div class="header">
-        <div class="lock-badge">♓ PREPARANDO LOS 50 ♓</div>
-        <h1 class="title">¡Vane cumple 50!</h1>
-        <p class="subtitle">Ayudá a preparar la celebración especial de Piscis</p>
+        <div class="lock-badge">VIAJE EN EL TIEMPO</div>
+        <h1 class="title">El Viaje de Vane</h1>
+        <p class="subtitle">Acompañá su vuelo a través de los años</p>
       </div>
 
-      <!-- Escena de preparación -->
-      <div class="party-scene">
-        <div class="scene-bg"></div>
-        
-        <!-- Mesa -->
-        <div class="table"></div>
-        
-        <!-- Pastel -->
-        <div class="cake" id="cake">
-          <div class="cake-base" id="cakeBase">
-            <div class="cake-layer" id="cakeLayer"></div>
-          </div>
-          <div class="cake-top"></div>
-          <div class="candles-container" id="candlesContainer">
-            <div class="candle" id="candle1">
-              <div class="candle-flame"></div>
-            </div>
-            <div class="candle" id="candle2">
-              <div class="candle-flame"></div>
-            </div>
-            <div class="candle" id="candle3">
-              <div class="candle-flame"></div>
-            </div>
-            <div class="candle" id="candle4">
-              <div class="candle-flame"></div>
-            </div>
-            <div class="candle" id="candle5">
-              <div class="candle-flame"></div>
-            </div>
-          </div>
+      <!-- Animación del viaje -->
+      <div class="life-journey">
+        <!-- Contenedor de línea de tiempo extendida -->
+        <div class="timeline-container">
+          <div class="timeline"></div>
+          
+          <!-- Marcadores de edad -->
+          <div class="age-marker birth active">0</div>
+          <div class="age-marker teen">15</div>
+          <div class="age-marker adult">30</div>
+          <div class="age-marker mature">40</div>
+          <div class="age-marker fifty">50</div>
+          
+          <!-- Avión emoji -->
+          <div class="airplane" id="traveler">👶</div>
+
         </div>
-        
-        <!-- Globos -->
-        <div class="balloons-container" id="balloonsContainer">
-          <div class="balloon red" id="balloon1"></div>
-          <div class="balloon blue" id="balloon2"></div>
-          <div class="balloon green" id="balloon3"></div>
-          <div class="balloon yellow" id="balloon4"></div>
-        </div>
-        
-        <!-- Confeti -->
-        <div class="confetti-container" id="confettiContainer"></div>
       </div>
 
       <div class="counter-container">
-        <div class="counter-circle">
-          <svg class="progress-ring" width="160" height="160" viewBox="0 0 160 160">
-            <circle class="ring-bg" cx="80" cy="80" r="70"></circle>
-            <circle class="ring-progress" id="ringProgress" cx="80" cy="80" r="70"></circle>
-          </svg>
-          <div class="counter" id="counter">0</div>
+        <div class="counter" id="counter">0</div>
+        <div class="counter-label">
+          <span class="current-age" id="currentAge">0 años</span>
+          <span class="current-year" id="currentYear">Año: 1966</span>
         </div>
       </div>
 
-      <button class="prepare-btn" id="prepareBtn">
-        <span>♓</span> MANTENÉ PARA PREPARAR LA FIESTA
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress"></div>
+      </div>
+
+      <button class="time-travel-btn" id="timeTravelBtn">
+        <span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO
       </button>
     </div>
 
     <!-- CARD 2 - INVITACIÓN -->
     <div class="card card-2" id="card2">
       <div class="header">
-        <div class="lock-badge" style="background: rgba(89,255,189,0.2); border-color: rgba(89,255,189,0.4);">
-          🎉 ¡FIESTA PREPARADA! ♓
+        <div class="lock-badge" style="background: rgba(89,255,189,0.1); border-color: rgba(89,255,189,0.2);">
+          🎉 ¡50 AÑOS CUMPLIDOS!
         </div>
         <h1 class="title">¡Celebremos Juntos!</h1>
-        <p class="subtitle">50 años de Vane - Signo: Piscis</p>
+        <p class="subtitle">Te invito a celebrar mis 50 años</p>
       </div>
 
       <div class="info-grid">
@@ -862,18 +603,18 @@
       </div>
 
       <div class="dresscode">
-        👕 Dresscode: Lo que te pinte (azul piscis sugerido)
+        👕 Dresscode: Lo que te pinte
       </div>
 
       <div class="action-buttons">
         <a href="#" class="action-btn btn-maps" id="mapsBtn" target="_blank">
-          <span>📍</span> MAPS
+          📍 Maps
         </a>
         <a href="#" class="action-btn btn-confirm" id="confirmBtn" target="_blank">
-          <span>💬</span> CONFIRMAR
+          💬 Confirmar
         </a>
         <button class="action-btn btn-replay" id="replayBtn">
-          <span>♓</span> PREPARAR OTRA VEZ
+          🔁 Revivir el viaje
         </button>
       </div>
     </div>
@@ -883,42 +624,39 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // Configuración del evento
-    const EVENT = {
-      date: "28/02/2016",
-      time: "20:30",
-      place: "SUM",
-      address: "Av Congreso 1634, CABA",
-      whatsapp: "5491137051401"
-    };
+    // Configuración
+const EVENT = {
+  date: "28/02/2026",
+  time: "20:30",
+  place: "SUM",
+  address: "Av Congreso 1634, CABA",
+  whatsapp: "5491137051401",
+  birthYear: 1976
+};
+
 
     // Elementos DOM
     const card1 = document.getElementById('card1');
     const card2 = document.getElementById('card2');
-    const cakeBase = document.getElementById('cakeBase');
-    const cakeLayer = document.getElementById('cakeLayer');
-    const candlesContainer = document.getElementById('candlesContainer');
-    const candles = [
-      document.getElementById('candle1'),
-      document.getElementById('candle2'),
-      document.getElementById('candle3'),
-      document.getElementById('candle4'),
-      document.getElementById('candle5')
-    ];
-    const balloonsContainer = document.getElementById('balloonsContainer');
-    const balloons = [
-      document.getElementById('balloon1'),
-      document.getElementById('balloon2'),
-      document.getElementById('balloon3'),
-      document.getElementById('balloon4')
-    ];
-    const confettiContainer = document.getElementById('confettiContainer');
+    const traveler = document.getElementById('traveler');
+
     const counter = document.getElementById('counter');
-    const ringProgress = document.getElementById('ringProgress');
-    const prepareBtn = document.getElementById('prepareBtn');
+    const currentAge = document.getElementById('currentAge');
+    const currentYear = document.getElementById('currentYear');
+    const progress = document.getElementById('progress');
+    const timeTravelBtn = document.getElementById('timeTravelBtn');
     const replayBtn = document.getElementById('replayBtn');
     const toast = document.getElementById('toast');
     const piscisBg = document.getElementById('piscisBg');
+    
+    // Marcadores de edad
+    const ageMarkers = [
+      document.querySelector('.age-marker.birth'),
+      document.querySelector('.age-marker.teen'),
+      document.querySelector('.age-marker.adult'),
+      document.querySelector('.age-marker.mature'),
+      document.querySelector('.age-marker.fifty')
+    ];
 
     // Elementos de información
     document.getElementById('date').textContent = EVENT.date;
@@ -927,218 +665,168 @@
     document.getElementById('address').textContent = EVENT.address;
 
     // Configurar enlaces
-    const mapsUrl = `https://maps.apple.com/?q=${encodeURIComponent(EVENT.address)}`;
-    const waText = `🎉 Confirmo mi asistencia al cumple 50 de Vane ♓\n\n📅 Fecha: ${EVENT.date}\n🕗 Hora: ${EVENT.time} hs\n📍 Lugar: ${EVENT.place}\n🎂 ¡Vamos a celebrar 50 años de Piscis!`;
+    const mapsUrl = "https://www.google.com/maps/place/Congreso+1634,+C1428BUD+C1428BUD,+Cdad.+Aut%C3%B3noma+de+Buenos+Aires/@-34.5516346,-58.4572173,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcb42e5604cbe3:0x6b2a12dff64dea72!8m2!3d-34.5516346!4d-58.454637!16s%2Fg%2F11c4xgt_vb?authuser=0&entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D";
+    const waText = "Confirmo mi asistencia a los 50 de Vane !!";
     const waUrl = `https://wa.me/${EVENT.whatsapp}?text=${encodeURIComponent(waText)}`;
     
     document.getElementById('mapsBtn').href = mapsUrl;
     document.getElementById('confirmBtn').href = waUrl;
 
     // Variables de estado
-    let progressValue = 0;
+    let currentProgress = 0;
     const maxProgress = 50;
     let interval = null;
-    let isUnlocked = false;
-    const RING_RADIUS = 70;
-    const RING_CIRC = 2 * Math.PI * RING_RADIUS;
+    let isCompleted = false;
 
     // Crear fondo de Piscis
     function createPiscisBackground() {
       // Crear estrellas
-      for (let i = 0; i < 120; i++) {
+      for (let i = 0; i < 100; i++) {
         const star = document.createElement('div');
-        const size = Math.random();
-        
-        if (size < 0.6) star.className = 'star small';
-        else if (size < 0.9) star.className = 'star medium';
-        else star.className = 'star large';
-        
+        star.className = Math.random() > 0.7 ? 'star medium' : 'star small';
         star.style.left = `${Math.random() * 100}%`;
         star.style.top = `${Math.random() * 100}%`;
         star.style.animationDelay = `${Math.random() * 3}s`;
-        
         piscisBg.appendChild(star);
       }
 
-      // Crear símbolos de Piscis (♓)
-      for (let i = 0; i < 25; i++) {
+      // Crear símbolos de Piscis
+      for (let i = 0; i < 30; i++) {
         const symbol = document.createElement('div');
         symbol.className = 'piscis-symbol';
         symbol.textContent = '♓';
         symbol.style.left = `${Math.random() * 100}%`;
         symbol.style.top = `${Math.random() * 100}%`;
-        symbol.style.fontSize = `${28 + Math.random() * 24}px`;
-        symbol.style.animationDelay = `${Math.random() * 30}s`;
-        symbol.style.animationDuration = `${20 + Math.random() * 20}s`;
-        
+        symbol.style.fontSize = `${24 + Math.random() * 12}px`;
+        symbol.style.animationDelay = `${Math.random() * 25}s`;
+        symbol.style.animationDuration = `${20 + Math.random() * 15}s`;
+        symbol.style.opacity = `${0.2 + Math.random() * 0.2}`;
         piscisBg.appendChild(symbol);
       }
+    }
 
-      // Crear algunas líneas de conexión
-      for (let i = 0; i < 15; i++) {
-        const line = document.createElement('div');
-        line.className = 'piscis-line';
-        line.style.left = `${Math.random() * 90}%`;
-        line.style.top = `${Math.random() * 90}%`;
-        line.style.width = `${20 + Math.random() * 60}px`;
-        line.style.transform = `rotate(${Math.random() * 360}deg)`;
-        line.style.opacity = `${0.1 + Math.random() * 0.1}`;
+    // Actualizar posición del avión y contadores
+    function updateJourney(age) {
+      const clampedAge = Math.max(0, Math.min(maxProgress, age));
+      currentProgress = clampedAge;
+      
+      // Posición en la línea de tiempo (0% a 100%)
+      const position = (clampedAge / maxProgress) * 100;
+      
+      // Calcular posición en píxeles dentro del contenedor con padding
+      const cont = document.querySelector('.timeline-container');
+      const pad = 14;
+      const width = cont ? cont.clientWidth : 0;
+      const px = width ? (position / 100) * (width - pad * 2) + pad : pad;
+      
+      traveler.style.left = `${px}px`;
+      
+      let emoji = '👶';
+      if (clampedAge >= 6 && clampedAge <= 12) emoji = '🧒';
+      else if (clampedAge >= 13 && clampedAge <= 19) emoji = '👧';
+      else if (clampedAge >= 20 && clampedAge <= 49) emoji = '👩';
+      else if (clampedAge >= 50) emoji = '👩‍🦳';
+      traveler.textContent = emoji;
+      
+      // Actualizar contadores
+      counter.textContent = clampedAge;
+      currentAge.textContent = `${clampedAge} años`;
+      currentYear.textContent = `Año: ${EVENT.birthYear + clampedAge}`;
+      progress.style.width = `${position}%`;
+      
+      // Activar marcadores de edad alcanzados
+      ageMarkers.forEach(marker => {
+        const markerAge = parseInt(marker.textContent);
+        if (clampedAge >= markerAge) {
+          marker.classList.add('active');
+        } else {
+          marker.classList.remove('active');
+        }
+      });
+      
+      // Animación suave del avión mientras avanza
+      if (clampedAge > 0 && clampedAge < maxProgress) {
+        const rotation = Math.sin(Date.now() / 200) * 5;
+        traveler.style.transform = `translateY(-5px) rotate(${rotation}deg)`;
         
-        piscisBg.appendChild(line);
+        // Efecto visual en el contador
+        counter.style.transform = 'scale(1.08)';
+        setTimeout(() => counter.style.transform = 'scale(1)', 100);
+      } else {
+        traveler.style.transform = 'translateY(0) rotate(0deg)';
+      }
+      
+      // Completar si llegó a 50
+      if (clampedAge === maxProgress && !isCompleted) {
+        completeJourney();
       }
     }
 
-    // Actualizar escena según progreso
-    function updateScene(value) {
-      progressValue = Math.max(0, Math.min(maxProgress, value));
-      const percentage = progressValue / maxProgress;
-      
-      // Actualizar UI
-      counter.textContent = progressValue;
-      ringProgress.style.strokeDashoffset = `${RING_CIRC * (1 - percentage)}`;
-      
-      // Efecto visual en el número
-      if (progressValue > 0 && progressValue < maxProgress) {
-        counter.style.transform = 'translate(-50%, -50%) scale(1.1)';
-        setTimeout(() => counter.style.transform = 'translate(-50%, -50%) scale(1)', 100);
-      }
-      
-      // Actualizar pastel (crece de 0 a 50px)
-      const cakeHeight = percentage * 50;
-      cakeBase.style.height = `${cakeHeight}px`;
-      cakeLayer.style.height = `${cakeHeight * 0.3}px`;
-      
-      // Aparecen velas al 50%
-      if (percentage >= 0.5) {
-        candlesContainer.style.opacity = '1';
-        
-        // Encender velas progresivamente
-        const candleCount = Math.min(5, Math.floor((percentage - 0.5) * 10));
-        
-        candles.forEach((candle, index) => {
-          if (index < candleCount) {
-            candle.style.height = '20px';
-            candle.querySelector('.candle-flame').style.opacity = '1';
-          }
-        });
-      }
-      
-      // Aparecen globos al 20%
-      if (percentage >= 0.2) {
-        balloonsContainer.style.opacity = '1';
-        
-        // Mostrar globos con delay
-        balloons.forEach((balloon, index) => {
-          const delay = index * 0.2;
-          if (percentage >= (0.2 + delay)) {
-            balloon.style.opacity = '1';
-            balloon.style.transform = 'translateY(0)';
-            balloon.classList.add('active');
-            balloon.style.animationDelay = `${index * 0.3}s`;
-          }
-        });
-      }
-      
-      // Aparece confeti al 80%
-      if (percentage >= 0.8 && confettiContainer.children.length === 0) {
-        createConfetti();
-        confettiContainer.style.opacity = '0.6';
-      }
-      
-      // Completar si llegó al máximo
-      if (progressValue === maxProgress && !isUnlocked) {
-        completePreparation();
-      }
-    }
-
-    // Crear confeti para la escena
-    function createConfetti() {
-      const colors = ['#6b8cff', '#8ba6ff', '#59ffbd', '#ffcf5a', '#ff6b9d', '#ff4fd8'];
-      
-      for (let i = 0; i < 30; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti-piece';
-        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = `${Math.random() * 100}%`;
-        confetti.style.top = `${Math.random() * 100}%`;
-        confetti.style.opacity = '0.8';
-        confetti.style.animationDelay = `${Math.random() * 2}s`;
-        confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
-        
-        confettiContainer.appendChild(confetti);
-      }
-    }
-
-    // Iniciar preparación
-    function startPreparation() {
-      if (interval || isUnlocked) return;
+    // Iniciar viaje en el tiempo
+    function startTimeTravel() {
+      if (interval || isCompleted) return;
       
       // Feedback háptico
       if (navigator.vibrate) navigator.vibrate(10);
       
       // Cambiar texto del botón
-      prepareBtn.innerHTML = '<span>♓</span> PREPARANDO...';
-      prepareBtn.style.opacity = '0.9';
+      timeTravelBtn.innerHTML = '<span>✈️</span> VIAJANDO EN EL TIEMPO...';
+      timeTravelBtn.style.opacity = '0.9';
       
       interval = setInterval(() => {
-        updateScene(progressValue + 1);
-      }, 60);
+        if (currentProgress < maxProgress) {
+          currentProgress++;
+          updateJourney(currentProgress);
+        }
+      }, 120);
     }
 
-    // Detener preparación
-    function stopPreparation() {
+    // Detener viaje en el tiempo
+    function stopTimeTravel() {
       if (!interval) return;
       clearInterval(interval);
       interval = null;
       
       // Restaurar texto del botón
-      prepareBtn.innerHTML = '<span>♓</span> MANTENÉ PARA PREPARAR LA FIESTA';
-      prepareBtn.style.opacity = '1';
+      timeTravelBtn.innerHTML = '<span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO';
+      timeTravelBtn.style.opacity = '1';
       
       // Retroceso si no se completó
-      if (progressValue < maxProgress && progressValue > 0) {
-        const resetInterval = setInterval(() => {
-          if (progressValue <= 0) {
-            clearInterval(resetInterval);
+      if (currentProgress < maxProgress && currentProgress > 0) {
+        const reverseInterval = setInterval(() => {
+          if (currentProgress <= 0) {
+            clearInterval(reverseInterval);
+            traveler.style.transform = 'translateY(0) rotate(0deg)';
             return;
           }
-          updateScene(progressValue - 1);
-        }, 40);
+          currentProgress--;
+          updateJourney(currentProgress);
+        }, 80);
       }
     }
 
-    // Completar preparación
-    function completePreparation() {
-      isUnlocked = true;
+    // Completar el viaje (llegar a 50 años)
+    function completeJourney() {
+      isCompleted = true;
       clearInterval(interval);
       interval = null;
       
-      // Animación final del pastel
-      cakeBase.style.height = '55px';
-      cakeBase.style.transform = 'scale(1.1)';
+      // Animación final del avión
+      traveler.style.animation = 'none';
+      traveler.style.transform = 'translateY(-6px) scale(1.5) rotate(10deg)';
       
-      // Encender todas las velas
-      candles.forEach(candle => {
-        candle.style.height = '25px';
-        const flame = candle.querySelector('.candle-flame');
-        flame.style.opacity = '1';
-        flame.style.animation = 'flicker 0.5s infinite alternate';
-      });
-      
-      // Animación de globos
-      balloons.forEach(balloon => {
-        balloon.style.transform = 'translateY(-8px) scale(1.15)';
-      });
-      
-      // Más confeti
-      createConfetti();
-      confettiContainer.style.opacity = '1';
+      // Cambiar emoji del avión por uno de celebración
+      setTimeout(() => {
+        traveler.textContent = '🎉';
+        traveler.style.fontSize = '45px';
+        traveler.style.transform = 'translateY(-8px) scale(1.8)';
+      }, 500);
       
       // Feedback háptico
-      if (navigator.vibrate) navigator.vibrate([20, 40, 20, 40, 60]);
+      if (navigator.vibrate) navigator.vibrate([20, 30, 20, 30, 50]);
       
       // Mostrar toast
-      showToast('🎂 ¡Pastel listo! ¡Fiesta de Piscis preparada! ♓');
+      showToast('✈️ ¡Llegamos a los 50! ¡Feliz cumple Vane!');
       
       // Transición a la invitación
       setTimeout(() => {
@@ -1156,86 +844,63 @@
       
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 2500);
+      }, 2000);
     }
 
     // Botón de repetir
     replayBtn.addEventListener('click', () => {
-      isUnlocked = false;
-      progressValue = 0;
+      isCompleted = false;
+      currentProgress = 0;
       
-      // Resetear animaciones
-      cakeBase.style.height = '0px';
-      cakeBase.style.transform = 'scale(1)';
-      cakeLayer.style.height = '0px';
-      candlesContainer.style.opacity = '0';
-      balloonsContainer.style.opacity = '0';
-      confettiContainer.style.opacity = '0';
+      // Resetear animaciones del avión
+      traveler.textContent = '👶';
+      traveler.style.fontSize = '40px';
+      traveler.style.animation = 'floatPlane 2s infinite ease-in-out';
+      traveler.style.transform = 'translateY(0) rotate(0deg)';
       
-      // Resetear velas
-      candles.forEach(candle => {
-        candle.style.height = '0px';
-        candle.querySelector('.candle-flame').style.opacity = '0';
+      // Resetear marcadores
+      ageMarkers.forEach(marker => {
+        marker.classList.remove('active');
       });
-      
-      // Resetear globos
-      balloons.forEach(balloon => {
-        balloon.style.opacity = '0';
-        balloon.style.transform = 'translateY(30px)';
-      });
-      
-      // Limpiar confeti
-      confettiContainer.innerHTML = '';
+      ageMarkers[0].classList.add('active'); // Reactivar marcador de nacimiento
       
       // Transición inversa
       card2.classList.remove('visible');
       setTimeout(() => {
         card1.classList.remove('hidden');
-        updateScene(0);
+        updateJourney(0);
       }, 300);
       
-      showToast('♓ ¡Empecemos de nuevo!');
+      showToast('✈️ Despegando nuevamente...');
       if (navigator.vibrate) navigator.vibrate(10);
     });
 
     // Eventos para el botón
-    prepareBtn.addEventListener('touchstart', (e) => {
+    timeTravelBtn.addEventListener('touchstart', (e) => {
       e.preventDefault();
-      startPreparation();
+      startTimeTravel();
     }, { passive: false });
 
-    prepareBtn.addEventListener('touchend', stopPreparation);
-    prepareBtn.addEventListener('touchcancel', stopPreparation);
+    timeTravelBtn.addEventListener('touchend', stopTimeTravel);
+    timeTravelBtn.addEventListener('touchcancel', stopTimeTravel);
 
-    prepareBtn.addEventListener('mousedown', startPreparation);
-    document.addEventListener('mouseup', stopPreparation);
-    prepareBtn.addEventListener('mouseleave', stopPreparation);
+    timeTravelBtn.addEventListener('mousedown', startTimeTravel);
+    document.addEventListener('mouseup', stopTimeTravel);
+    timeTravelBtn.addEventListener('mouseleave', stopTimeTravel);
 
     // Inicializar
     function init() {
-      updateScene(0);
+      updateJourney(0);
       createPiscisBackground();
       
       // Ajustar altura en iOS
       if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-        const setHeight = () => {
-          document.documentElement.style.height = `${window.innerHeight}px`;
-          document.body.style.height = `${window.innerHeight}px`;
-        };
+        document.documentElement.style.height = `${window.innerHeight}px`;
         
-        setHeight();
-        window.addEventListener('resize', setHeight);
-        window.addEventListener('orientationchange', setHeight);
+        window.addEventListener('resize', () => {
+          document.documentElement.style.height = `${window.innerHeight}px`;
+        });
       }
-      
-      // Ajustar tamaño inicial
-      setTimeout(() => {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
-      }, 100);
-      
-      ringProgress.style.strokeDasharray = `${RING_CIRC} ${RING_CIRC}`;
-      ringProgress.style.strokeDashoffset = `${RING_CIRC}`;
     }
 
     // Ejecutar cuando el DOM esté listo
