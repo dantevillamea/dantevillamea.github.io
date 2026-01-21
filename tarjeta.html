@@ -33,8 +33,8 @@
       overflow: hidden;
     }
     body{
-  min-height: 100dvh;
-}
+      min-height: 100dvh;
+    }
     
     body{
       margin:0;
@@ -102,37 +102,32 @@
     }
 
     /* Contenedor principal */
-.container{
-  width: 100%;
-  max-width: 320px;
-  height: min(640px, calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px));
-  position: relative;
-  margin: 0 auto;
-  z-index: 10;
-}
+    .container{
+      width: 100%;
+      max-width: 320px;
+      height: min(640px, calc(100dvh - var(--safe-top) - var(--safe-bottom) - 24px));
+      position: relative;
+      margin: 0 auto;
+      z-index: 10;
+    }
 
     /* Tarjetas */
-.card{
-  width: 100%;
-  height: 100%;
-  border-radius: var(--r);
-  background: var(--card);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.05);
-
-  overflow: hidden;                /* el card corta bordes */
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  flex-direction: column;
-  backdrop-filter: blur(10px);
-
-  /* padding normal */
-  padding: 20px;
-}
-
+    .card{
+      width: 100%;
+      height: 100%;
+      border-radius: var(--r);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,0.05);
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(10px);
+      padding: 20px;
+    }
 
     /* CARD 1 - VIAJE EN EL TIEMPO */
     .card-1{
@@ -205,21 +200,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      overflow: visible; /* Cambiado de hidden a visible */
+      overflow: visible;
     }
 
-    /* Fondo de la línea de tiempo - EXTENDIDA PARA QUE NO SE CORTE */
-.timeline-container{
-  position: relative;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 14px;          /* margen interno para que no se corte */
-  overflow: visible;
-}
-
-
+    /* Fondo de la línea de tiempo */
+    .timeline-container{
+      position: relative;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      overflow: visible;
+    }
 
     .timeline {
       width: 100%;
@@ -261,19 +254,18 @@
       transform: translateX(-50%) scale(1.2);
     }
 
-/* Marcadores posicionados dentro del padding */
-.age-marker.birth  { left: 14px; }
-.age-marker.teen   { left: 25%; }
-.age-marker.adult  { left: 50%; }
-.age-marker.mature { left: 75%; }
-.age-marker.fifty  { left: calc(100% - 14px); }
-
+    /* Marcadores posicionados dentro del padding */
+    .age-marker.birth  { left: 14px; }
+    .age-marker.teen   { left: 25%; }
+    .age-marker.adult  { left: 50%; }
+    .age-marker.mature { left: 75%; }
+    .age-marker.fifty  { left: calc(100% - 14px); }
 
     /* Avión emoji que se desplaza */
     .airplane{
       position:absolute;
       top:-30px;
-      left:14px; /* arranca dentro del padding */
+      left:14px;
       font-size:40px;
       transform: translateY(0) rotate(0deg);
       transition: left 0.25s ease, transform 0.2s ease;
@@ -476,6 +468,210 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    /* MODAL DE CONFIRMACIÓN - NUEVO Y MEJORADO */
+    .confirmation-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .confirmation-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-content {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      background: linear-gradient(145deg, rgba(30, 30, 50, 0.95), rgba(20, 20, 40, 0.95));
+      border-radius: var(--r);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                  0 0 0 1px rgba(255, 255, 255, 0.05),
+                  0 0 40px rgba(89, 255, 189, 0.3);
+      overflow: hidden;
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .confirmation-modal.active .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-header {
+      padding: 25px 20px 20px;
+      text-align: center;
+      background: linear-gradient(180deg, 
+        rgba(89, 255, 189, 0.15) 0%,
+        rgba(89, 255, 189, 0.05) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: var(--ok);
+      border-radius: 2px;
+      animation: confettiFall 2s ease-in-out forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(-30px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .modal-icon {
+      font-size: 64px;
+      margin-bottom: 15px;
+      display: block;
+      animation: celebrate 1.5s ease-in-out;
+      filter: drop-shadow(0 0 20px rgba(89, 255, 189, 0.5));
+    }
+
+    @keyframes celebrate {
+      0%, 100% { transform: scale(1); }
+      25% { transform: scale(1.3); }
+      50% { transform: scale(1); }
+      75% { transform: scale(1.2); }
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, var(--ok), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+    }
+
+    .modal-body {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .modal-message {
+      font-size: 16px;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      color: white;
+    }
+
+    .modal-highlight {
+      background: linear-gradient(90deg, var(--ok), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+
+    .modal-date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      padding: 12px;
+      background: rgba(89, 255, 189, 0.1);
+      border-radius: 12px;
+      border: 1px solid rgba(89, 255, 189, 0.2);
+    }
+
+    .modal-date-icon {
+      font-size: 20px;
+    }
+
+    .modal-date-text {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .modal-btn-close {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .modal-btn-close:active {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(0.98);
+    }
+
+ 
+
     /* Responsive */
     @media (max-height: 600px){
       .container{
@@ -504,6 +700,10 @@
         padding: 16px;
         font-size: 14px;
       }
+
+      .modal-content {
+        max-width: 280px;
+      }
     }
 
     @media (max-width: 350px){
@@ -528,13 +728,21 @@
       .btn-replay{
         grid-column: span 1;
       }
-      .card-scroll{
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(var(--safe-bottom) + 110px); /* espacio para barra Safari */
-}
+      
+      .modal-content {
+        max-width: 260px;
+      }
+      
+      .modal-actions {
+        flex-direction: column;
+      }
+    }
 
+    .card-scroll{
+      height: 100%;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: calc(var(--safe-bottom) + 110px);
     }
   </style>
 </head>
@@ -543,124 +751,155 @@
   <!-- Fondo con símbolos de Piscis -->
   <div class="piscis-bg" id="piscisBg"></div>
 
+  <!-- Modal de confirmación mejorado -->
+  <div class="confirmation-modal" id="confirmationModal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="confetti" id="confetti"></div>
+        <div class="modal-icon">🎉</div>
+        <h2 class="modal-title">¡CONFIRMADO!</h2>
+        <p class="modal-subtitle">Tu asistencia fue confirmada</p>
+      </div>
+      <div class="modal-body">
+        <p class="modal-message">
+          ¡Genial <span class="modal-highlight">🎊</span>!<br>
+          Ya estás en la lista para<br>
+          <span class="modal-highlight">Los 50 de Vane</span>
+        </p>
+        
+        <div class="modal-date">
+          <span class="modal-date-icon">📅</span>
+          <span class="modal-date-text">28 de Febrero 2026 - 20:30 hs</span>
+        </div>
+
+        <p class="modal-subtitle" style="margin-top: 20px;">
+          Guardá la fecha y preparate para<br>
+          una noche <span class="modal-highlight">inolvidable</span> 🥳
+        </p>
+
+        <div class="modal-actions">
+          <button class="modal-btn modal-btn-close" id="modalCloseBtn">
+            ✅ Listo
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <!-- CARD 1 - VIAJE EN EL TIEMPO -->
     <div class="card card-1" id="card1">
-        <div class="card-scroll">
-               <div class="header">
-        <div class="lock-badge">VIAJE EN EL TIEMPO</div>
-        <h1 class="title">El Viaje de Vane</h1>
-        <p class="subtitle">Acompañá su vuelo a través de los años</p>
-      </div>
-
-      <!-- Animación del viaje -->
-      <div class="life-journey">
-        <!-- Contenedor de línea de tiempo extendida -->
-        <div class="timeline-container">
-          <div class="timeline"></div>
-          
-          <!-- Marcadores de edad -->
-          <div class="age-marker birth active">0</div>
-          <div class="age-marker teen">15</div>
-          <div class="age-marker adult">30</div>
-          <div class="age-marker mature">40</div>
-          <div class="age-marker fifty">50</div>
-          
-          <!-- Avión emoji -->
-          <div class="airplane" id="traveler">👶</div>
-
+      <div class="card-scroll">
+        <div class="header">
+          <div class="lock-badge">VIAJE EN EL TIEMPO</div>
+          <h1 class="title">El Viaje de Vane</h1>
+          <p class="subtitle">Acompañá su vuelo a través de los años</p>
         </div>
-      </div>
 
-      <div class="counter-container">
-        <div class="counter" id="counter">0</div>
-        <div class="counter-label">
-          <span class="current-age" id="currentAge">0 años</span>
-          <span class="current-year" id="currentYear">Año: 1966</span>
+        <!-- Animación del viaje -->
+        <div class="life-journey">
+          <!-- Contenedor de línea de tiempo extendida -->
+          <div class="timeline-container">
+            <div class="timeline"></div>
+            
+            <!-- Marcadores de edad -->
+            <div class="age-marker birth active">0</div>
+            <div class="age-marker teen">15</div>
+            <div class="age-marker adult">30</div>
+            <div class="age-marker mature">40</div>
+            <div class="age-marker fifty">50</div>
+            
+            <!-- Avión emoji -->
+            <div class="airplane" id="traveler">👶</div>
+          </div>
         </div>
-      </div>
 
-      <div class="progress-bar">
-        <div class="progress-fill" id="progress"></div>
-      </div>
+        <div class="counter-container">
+          <div class="counter" id="counter">0</div>
+          <div class="counter-label">
+            <span class="current-age" id="currentAge">0 años</span>
+            <span class="current-year" id="currentYear">Año: 1966</span>
+          </div>
+        </div>
 
-      <button class="time-travel-btn" id="timeTravelBtn">
-        <span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO
-      </button>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress"></div>
+        </div>
+
+        <button class="time-travel-btn" id="timeTravelBtn">
+          <span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO
+        </button>
+      </div>
     </div>
-        </div>
-
 
     <!-- CARD 2 - INVITACIÓN -->
     <div class="card card-2" id="card2">
       <div class="card-scroll">
-      <div class="header">
-        <div class="lock-badge" style="background: rgba(89,255,189,0.1); border-color: rgba(89,255,189,0.2);">
-          🎉 ¡50 AÑOS CUMPLIDOS!
+        <div class="header">
+          <div class="lock-badge" style="background: rgba(89,255,189,0.1); border-color: rgba(89,255,189,0.2);">
+            🎉 ¡50 AÑOS CUMPLIDOS!
+          </div>
+          <h1 class="title">¡Celebremos Juntos!</h1>
+          <p class="subtitle">Te invito a celebrar mis 50 años</p>
         </div>
-        <h1 class="title">¡Celebremos Juntos!</h1>
-        <p class="subtitle">Te invito a celebrar mis 50 años</p>
-      </div>
 
-      <div class="info-grid">
-        <div class="info-item">
-          <div class="info-label">Fecha</div>
-          <div class="info-value" id="date">28/02/2016</div>
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Fecha</div>
+            <div class="info-value" id="date">28/02/2026</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Hora</div>
+            <div class="info-value" id="time">20:30 hs</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Lugar</div>
+            <div class="info-value" id="place">SUM</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Dirección</div>
+            <div class="info-value" id="address">Av Congreso 1634</div>
+          </div>
         </div>
-        <div class="info-item">
-          <div class="info-label">Hora</div>
-          <div class="info-value" id="time">20:30 hs</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Lugar</div>
-          <div class="info-value" id="place">SUM</div>
-        </div>
-        <div class="info-item">
-          <div class="info-label">Dirección</div>
-          <div class="info-value" id="address">Av Congreso 1634</div>
-        </div>
-      </div>
 
-      <div class="dresscode">
-        👕 Dresscode: Lo que te pinte
-      </div>
+        <div class="dresscode">
+          👕 Dresscode: Lo que te pinte
+        </div>
 
-      <div class="action-buttons">
-        <a href="#" class="action-btn btn-maps" id="mapsBtn" target="_blank">
-          📍 Maps
-        </a>
-        <a href="#" class="action-btn btn-confirm" id="confirmBtn" target="_blank">
-          💬 Confirmar
-        </a>
-        <button class="action-btn btn-replay" id="replayBtn">
-          🔁 Revivir el viaje
-        </button>
+        <div class="action-buttons">
+          <a href="#" class="action-btn btn-maps" id="mapsBtn" target="_blank">
+            📍 Maps
+          </a>
+          <button class="action-btn btn-confirm" id="confirmBtn">
+            ✅ Confirmo
+          </button>
+          <button class="action-btn btn-replay" id="replayBtn">
+            🔁 Revivir el viaje
+          </button>
+        </div>
       </div>
     </div>
   </div>
-      </div>
-
 
   <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
   <script>
     // Configuración
-const EVENT = {
-  date: "28/02/2026",
-  time: "20:30",
-  place: "SUM",
-  address: "Av Congreso 1634, CABA",
-  whatsapp: "5491137051401",
-  birthYear: 1976
-};
-
+    const EVENT = {
+      date: "28/02/2026",
+      time: "20:30",
+      place: "SUM",
+      address: "Av Congreso 1634, CABA",
+      whatsapp: "5491137051401",
+      birthYear: 1976
+    };
 
     // Elementos DOM
     const card1 = document.getElementById('card1');
     const card2 = document.getElementById('card2');
     const traveler = document.getElementById('traveler');
-
     const counter = document.getElementById('counter');
     const currentAge = document.getElementById('currentAge');
     const currentYear = document.getElementById('currentYear');
@@ -669,6 +908,11 @@ const EVENT = {
     const replayBtn = document.getElementById('replayBtn');
     const toast = document.getElementById('toast');
     const piscisBg = document.getElementById('piscisBg');
+    
+    // Modal de confirmación
+    const confirmationModal = document.getElementById('confirmationModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const confettiContainer = document.getElementById('confetti');
     
     // Marcadores de edad
     const ageMarkers = [
@@ -687,12 +931,8 @@ const EVENT = {
 
     // Configurar enlaces
     const mapsUrl = "https://www.google.com/maps/place/Congreso+1634,+C1428BUD+C1428BUD,+Cdad.+Aut%C3%B3noma+de+Buenos+Aires/@-34.5516346,-58.4572173,17z/data=!3m1!4b1!4m6!3m5!1s0x95bcb42e5604cbe3:0x6b2a12dff64dea72!8m2!3d-34.5516346!4d-58.454637!16s%2Fg%2F11c4xgt_vb?authuser=0&entry=ttu&g_ep=EgoyMDI2MDExMy4wIKXMDSoKLDEwMDc5MjA3M0gBUAM%3D";
-    const waText = "Confirmo mi asistencia a los 50 de Vane !!";
-    const waUrl = `https://wa.me/${EVENT.whatsapp}?text=${encodeURIComponent(waText)}`;
-    
     document.getElementById('mapsBtn').href = mapsUrl;
-    document.getElementById('confirmBtn').href = waUrl;
-
+    
     // Variables de estado
     let currentProgress = 0;
     const maxProgress = 50;
@@ -726,15 +966,73 @@ const EVENT = {
       }
     }
 
+    // Crear efecto confetti
+    function createConfetti() {
+      confettiContainer.innerHTML = '';
+      const colors = ['#59FFBD', '#4FD8FF', '#FF4FD8', '#FFCF5A', '#6B8CFF'];
+      
+      for (let i = 0; i < 50; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.top = `${Math.random() * 20}%`;
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width = `${6 + Math.random() * 8}px`;
+        piece.style.height = `${6 + Math.random() * 8}px`;
+        piece.style.animationDelay = `${Math.random() * 0.5}s`;
+        piece.style.animationDuration = `${1 + Math.random() * 1.5}s`;
+        piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        confettiContainer.appendChild(piece);
+      }
+    }
+
+    // Mostrar modal de confirmación
+    function showConfirmationModal() {
+      createConfetti();
+      confirmationModal.classList.add('active');
+      
+      // Feedback háptico mejorado
+      if (navigator.vibrate) {
+        navigator.vibrate([30, 50, 30, 50, 100]);
+      }
+      
+      // Deshabilitar scroll del body
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Ocultar modal de confirmación
+    function hideConfirmationModal() {
+      confirmationModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Configurar botón de confirmación
+    const confirmBtn = document.getElementById('confirmBtn');
+    confirmBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showConfirmationModal();
+    });
+
+    // Configurar botón del modal
+    modalCloseBtn.addEventListener('click', () => {
+      hideConfirmationModal();
+      showToast('✅ ¡Buenísimo! Te espero');
+      if (navigator.vibrate) navigator.vibrate(10);
+    });
+
+    // Cerrar modal al tocar backdrop
+    confirmationModal.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-backdrop')) {
+        hideConfirmationModal();
+      }
+    });
+
     // Actualizar posición del avión y contadores
     function updateJourney(age) {
       const clampedAge = Math.max(0, Math.min(maxProgress, age));
       currentProgress = clampedAge;
       
-      // Posición en la línea de tiempo (0% a 100%)
       const position = (clampedAge / maxProgress) * 100;
-      
-      // Calcular posición en píxeles dentro del contenedor con padding
       const cont = document.querySelector('.timeline-container');
       const pad = 14;
       const width = cont ? cont.clientWidth : 0;
@@ -749,13 +1047,11 @@ const EVENT = {
       else if (clampedAge >= 50) emoji = '👩‍🦳';
       traveler.textContent = emoji;
       
-      // Actualizar contadores
       counter.textContent = clampedAge;
       currentAge.textContent = `${clampedAge} años`;
       currentYear.textContent = `Año: ${EVENT.birthYear + clampedAge}`;
       progress.style.width = `${position}%`;
       
-      // Activar marcadores de edad alcanzados
       ageMarkers.forEach(marker => {
         const markerAge = parseInt(marker.textContent);
         if (clampedAge >= markerAge) {
@@ -765,19 +1061,16 @@ const EVENT = {
         }
       });
       
-      // Animación suave del avión mientras avanza
       if (clampedAge > 0 && clampedAge < maxProgress) {
         const rotation = Math.sin(Date.now() / 200) * 5;
         traveler.style.transform = `translateY(-5px) rotate(${rotation}deg)`;
         
-        // Efecto visual en el contador
         counter.style.transform = 'scale(1.08)';
         setTimeout(() => counter.style.transform = 'scale(1)', 100);
       } else {
         traveler.style.transform = 'translateY(0) rotate(0deg)';
       }
       
-      // Completar si llegó a 50
       if (clampedAge === maxProgress && !isCompleted) {
         completeJourney();
       }
@@ -787,10 +1080,8 @@ const EVENT = {
     function startTimeTravel() {
       if (interval || isCompleted) return;
       
-      // Feedback háptico
       if (navigator.vibrate) navigator.vibrate(10);
       
-      // Cambiar texto del botón
       timeTravelBtn.innerHTML = '<span>✈️</span> VIAJANDO EN EL TIEMPO...';
       timeTravelBtn.style.opacity = '0.9';
       
@@ -808,11 +1099,9 @@ const EVENT = {
       clearInterval(interval);
       interval = null;
       
-      // Restaurar texto del botón
       timeTravelBtn.innerHTML = '<span>✈️</span> MANTENÉ PARA VIAJAR EN EL TIEMPO';
       timeTravelBtn.style.opacity = '1';
       
-      // Retroceso si no se completó
       if (currentProgress < maxProgress && currentProgress > 0) {
         const reverseInterval = setInterval(() => {
           if (currentProgress <= 0) {
@@ -826,30 +1115,25 @@ const EVENT = {
       }
     }
 
-    // Completar el viaje (llegar a 50 años)
+    // Completar el viaje
     function completeJourney() {
       isCompleted = true;
       clearInterval(interval);
       interval = null;
       
-      // Animación final del avión
       traveler.style.animation = 'none';
       traveler.style.transform = 'translateY(-6px) scale(1.5) rotate(10deg)';
       
-      // Cambiar emoji del avión por uno de celebración
       setTimeout(() => {
         traveler.textContent = '🎉';
         traveler.style.fontSize = '45px';
         traveler.style.transform = 'translateY(-8px) scale(1.8)';
       }, 500);
       
-      // Feedback háptico
       if (navigator.vibrate) navigator.vibrate([20, 30, 20, 30, 50]);
       
-      // Mostrar toast
       showToast('✈️ ¡Llegamos a los 50!');
       
-      // Transición a la invitación
       setTimeout(() => {
         card1.classList.add('hidden');
         setTimeout(() => {
@@ -873,19 +1157,16 @@ const EVENT = {
       isCompleted = false;
       currentProgress = 0;
       
-      // Resetear animaciones del avión
       traveler.textContent = '👶';
       traveler.style.fontSize = '40px';
       traveler.style.animation = 'floatPlane 2s infinite ease-in-out';
       traveler.style.transform = 'translateY(0) rotate(0deg)';
       
-      // Resetear marcadores
       ageMarkers.forEach(marker => {
         marker.classList.remove('active');
       });
-      ageMarkers[0].classList.add('active'); // Reactivar marcador de nacimiento
+      ageMarkers[0].classList.add('active');
       
-      // Transición inversa
       card2.classList.remove('visible');
       setTimeout(() => {
         card1.classList.remove('hidden');
@@ -914,7 +1195,6 @@ const EVENT = {
       updateJourney(0);
       createPiscisBackground();
       
-      // Ajustar altura en iOS
       if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
         document.documentElement.style.height = `${window.innerHeight}px`;
         
@@ -924,7 +1204,6 @@ const EVENT = {
       }
     }
 
-    // Ejecutar cuando el DOM esté listo
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
