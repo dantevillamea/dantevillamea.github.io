@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guía Mili · Libros de decoración</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f2ec;
+      --paper: #fffaf5;
+      --text: #2a211b;
+      --muted: #77675c;
+      --line: #eadfd4;
+      --accent: #b9784d;
+      --accent-soft: #ead1be;
+      --shadow: 0 24px 60px rgba(74, 48, 30, .12);
+      --radius: 28px;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(185,120,77,.18), transparent 35%),
+        linear-gradient(180deg, #fffaf5 0%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .wrap {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 54px 0 70px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 36px;
+      align-items: end;
+      margin-bottom: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: rgba(255,250,245,.75);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 92px);
+      letter-spacing: -0.07em;
+      line-height: .86;
+      max-width: 820px;
+      font-weight: 760;
+    }
+
+    .intro {
+      font-size: 17px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 390px;
+      padding-bottom: 8px;
+    }
+
+    .hero-line {
+      margin: 18px 0 0;
+      color: var(--accent);
+      font-family: Georgia, serif;
+      font-size: 22px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255,250,245,.86);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(73, 45, 24, .06);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow);
+    }
+
+    .cover {
+      height: 330px;
+      background: #efe2d7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      background: rgba(255,255,255,.22);
+      filter: blur(10px);
+    }
+
+    .cover img {
+      position: relative;
+      max-width: 88%;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 18px 35px rgba(58,38,24,.2);
+      cursor: pointer;
+      transition: transform .25s ease;
+    }
+
+    .card:hover .cover img { transform: scale(1.025); }
+
+    .badge {
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      z-index: 2;
+      background: #f2c39c;
+      color: #3c2517;
+      font-size: 11px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 8px 12px;
+      letter-spacing: .02em;
+    }
+
+    .content {
+      padding: 22px 22px 24px;
+    }
+
+    .number {
+      font-size: 12px;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: 23px;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 8px;
+    }
+
+    .author {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .desc {
+      font-size: 14px;
+      line-height: 1.52;
+      color: #6f5e52;
+      margin-bottom: 18px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: #fbf3ec;
+      color: #7a5c48;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+    }
+
+    button {
+      width: 100%;
+      border: 1px solid var(--accent-soft);
+      background: transparent;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 12px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    button:hover {
+      background: #f7e8dc;
+      border-color: var(--accent);
+    }
+
+    .gallery {
+      display: none;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      padding: 0 22px 22px;
+    }
+
+    .gallery.open { display: grid; }
+
+    .gallery img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 14px;
+      cursor: pointer;
+      background: #eadfd4;
+    }
+
+    .note {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(24,17,12,.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 28px;
+    }
+
+    .modal.open { display: flex; }
+
+    .modal img {
+      max-width: min(1100px, 92vw);
+      max-height: 86vh;
+      object-fit: contain;
+      border-radius: 22px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    }
+
+    .close {
+      position: fixed;
+      top: 22px;
+      right: 24px;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,.25);
+      font-size: 24px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+    }
+
+    .missing {
+      width: 180px;
+      height: 230px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      background: #f7eadf;
+      color: var(--accent);
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px #ead5c5;
+    }
+
+    @media (max-width: 1050px) {
+      header { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 22px, 1220px); padding-top: 34px; }
+      .grid { grid-template-columns: 1fr; }
+      .cover { height: 300px; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    
+    }
+    .rating{
+  font-size:13px;
+  font-weight:700;
+  color:#b9784d;
+  margin-top:10px;
+  margin-bottom:20px;
+  line-height:1.5;
+}
+.amazon-btn{
+  display:block;
+  width:100%;
+  text-align:center;
+  text-decoration:none;
+  border:1px solid var(--accent-soft);
+  background:transparent;
+  color:var(--accent);
+  border-radius:999px;
+  padding:12px 14px;
+  font-weight:700;
+  transition:.2s ease;
+  margin-top:10px;
+}
+
+.amazon-btn:hover{
+  background:#f7e8dc;
+  border-color:var(--accent);
+}
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:8px;
+}
+
+.actions button,
+.actions .amazon-btn{
+  flex:1;
+}
+
+.amazon-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  border:1px solid var(--accent-soft);
+  background:transparent;
+  color:var(--accent);
+  border-radius:999px;
+  padding:12px 14px;
+  font-weight:700;
+  transition:.2s ease;
+}
+
+.amazon-btn:hover{
+  background:#f7e8dc;
+  border-color:var(--accent);
+}
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <header>
+      <div>
+        <div class="eyebrow">✦ guía</div>
+        <h1>Libros bombazos para mili</h1>
+        <div class="hero-line">decoración · interiores · texturas · objetos</div>
+      </div>
+      <p class="intro">
+        selección historiquisima de libros con estética cálida, editorial y Pinterest:
+        capas, mármol, sillones curvos, blancos, piedra, madera y casas con personalidad.
+      </p>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <div class="cover">
+          <span class="badge">🏆 MEJOR PICKARDO, TOPE DE GAMUZA.
+          
+          </span>
+          <img data-img="livebeautifultapa" alt="Portada Live Beautiful">
+        </div>
+        <div class="content">
+          <div class="number">01</div>
+          <h2>Live Beautiful</h2>
+          <p class="author">Athena Calderone</p>
+          <p class="rating">⭐⭐⭐⭐⭐ 4.5/5 dantuestrellas</p>
+          <p class="desc">Estetica de tapa muy parecida o igual a la de ART OF HOME, son del mismo estilo. Tiene mas cantidad de estilos, mas cantidad de mobiliario, llevado a algo un poco mas artístico o europeo se podría decir pero siguiendo con la rama del estilo de ella obvio. Sale mas de lo tradicional que art of home y creo yo q esta bueno teniendo en cuenta q mili estuvo en casa foa y hay bastante de esto. capas visuales, combinación mas "raras" de objetos, mas personalidad.</p>
+          <div class="tags">
+            <span class="tag">europeo</span><span class="tag">artístico</span><span class="tag">capas visuales</span>
+          </div>
+<div class="actions">
+  <button>Ver interior</button>
+
+<a class="amazon-btn" href="https://www.amazon.es/dp/1419742809" target="_blank">
+  Ver en amazon
+</a>
+</div>
+        </div>
+        <div class="gallery">
+          <img data-img="cocina" alt="Interior Live Beautiful 1">
+          <img data-img="casa-1" alt="Interior Live Beautiful 2">
+          <img data-img="silloncurvo" alt="Interior Live Beautiful 3">
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover">
+          <img data-img="theartofhome" alt="Portada The Art of Home">
+        </div>
+        <div class="content">
+          <div class="number">02</div>
+          <h2>The Art of Home</h2>
+          <p class="author">Shea McGee</p>
+          <p class="rating">⭐⭐⭐⭐☆ 4.3/5 dantuestrellas</p>
+          <p class="desc">Buena tapa, buenos colores, el estilo es mas bien tradicional-contemporáneo. No es el q mejor se adapta al estilo de mili en si, pero es el mejor de contenido (en su estilo) y esteticamente hablando
+</p>
+          <div class="tags">
+            <span class="tag">tradicional</span><span class="tag">luminoso</span><span class="tag">soft</span>
+          </div>
+          <button>Ver interior</button>
+<div class="actions">
+  <button>Ver interior</button>
+  <a class="amazon-btn" href="https://www.amazon.es/s?k=The+Art+of+Home+Shea+McGee" target="_blank">
+    Ver en amazon
+  </a>
+</div>
+        </div>
+        <div class="gallery">
+          <img data-img="artofhome1" alt="Interior The Art of Home 1">
+          <img data-img="artofhome2" alt="Interior The Art of Home 2">
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover">
+          <img data-img="vincentvanduysen" alt="Portada Vincent Van Duysen Works">
+        </div>
+        <div class="content">
+          <div class="number">03</div>
+          <h2>Vincent Van Duysen Works</h2>
+          <p class="author">Vincent Van Duysen</p>
+          <p class="rating">⭐⭐⭐⭐☆ 3.9/5 dantuestrellas</p>
+          <p class="desc">de la estéticas de las tapas quizás es la mas floja pero siendo tapa dura no esta TAN mal como de decoración. es de un arquitecto bastante conocido y muy bueno que también trabajo con zara home y todo. lo que me gusta de este es que hay muchas bastantes cosas que se acercan a su estilo "pinterest" creo yo: sillones curvos, materiales naturales, pocos objetos, beiges, arena, marrones suaves. Un minimalismo menos minimalista. 
+</p>
+          <div class="tags">
+            <span class="tag">minimalismo cálido</span><span class="tag">curvas</span><span class="tag">naturales</span>
+          </div>
+          <button>Ver interior</button>
+          <a class="amazon-btn" href="https://www.amazon.es/dp/0500021643" target="_blank">
+  Ver en Amazon
+</a>
+        </div>
+        <div class="gallery">
+          <img data-img="duysen1" alt="Interior Vincent Van Duysen 1">
+          <img data-img="duysen2+" alt="Interior Vincent Van Duysen 2">
+          <img data-img="duysen3" alt="Interior Vincent Van Duysen 3">
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="cover">
+          <img data-img="newmediterranean" alt="Portada The New Mediterranean">
+        </div>
+        <div class="content">
+          <div class="number">04</div>
+          <h2>The New Mediterranean</h2>
+          <p class="author">Gestalten</p>
+          <p class="rating">⭐⭐⭐☆☆ 3.7/5 dantuestrellas</p>
+          <p class="desc">la estética no es la mejor tampoco pero sigue estando bien también. Este lo puse porque sale de los estilos q venían siendo pero esta bueno. Es mas de casas y hoteles boutique tipo las de mallorca, Grecia, Ibiza, altea (jeje). Hay mas piedras natural, paredes de cal blanca, lino. básicamente altea digamos pero literal es eso y estaba bueno para poner algo diferente que capaz copaba. 
+</p>
+          <div class="tags">
+            <span class="tag">mediterráneo</span><span class="tag">piedra</span><span class="tag">cal blanca</span>
+          </div>
+          <button>Ver interior</button>
+<div class="actions">
+  <button>Ver interior</button>
+<a class="amazon-btn"
+href="https://www.amazon.es/s?k=The+New+Mediterranean"
+target="_blank">
+Ver en amazon 
+</a>
+</div>
+        </div>
+        <div class="gallery">
+          <img data-img="mediterranean1" alt="Interior Mediterranean 1">
+          <img data-img="mediterranean2" alt="Interior Mediterranean 2">
+          <img data-img="mediterranean3" alt="Interior Mediterranean 3">
+        </div>
+      </article>
+    </section>
+
+    <p class="note">
+      hola gordi
+    </p>
+  </main>
+
+  <div class="modal" id="modal">
+    <div class="close" id="close">×</div>
+    <img id="modalImg" alt="Imagen ampliada">
+  </div>
+
+  <script>
+    /*
+      IMPORTANTE:
+      Este código busca automáticamente tus imágenes aunque sean .jpg, .jpeg, .png o .webp.
+      Tu carpeta tiene que ser:
+      libros/
+        book_guide_mili_nuevo.html
+        imagenes/
+          livebeautifultapa.jpg/png/webp/jpeg
+          cocina.jpg/png/webp/jpeg
+          casa 1.jpg/png/webp/jpeg
+          silloncurvo.jpg/png/webp/jpeg
+          silloncurvo2.jpg/png/webp/jpeg
+    */
+
+    const extensiones = ["jpg", "jpeg", "png", "webp"];
+
+    function cargarImagen(img) {
+      const nombre = img.dataset.img;
+      let i = 0;
+
+      function probar() {
+        if (i >= extensiones.length) {
+          const box = document.createElement("div");
+          box.className = "missing";
+          box.textContent = "No encontré: " + nombre;
+          img.replaceWith(box);
+          return;
+        }
+
+        img.src = `./imagenes/${nombre}.${extensiones[i]}`;
+        i++;
+      }
+
+      img.onerror = probar;
+      probar();
+    }
+
+    document.querySelectorAll("img[data-img]").forEach(cargarImagen);
+
+    document.querySelectorAll(".card button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const gallery = btn.closest(".card").querySelector(".gallery");
+        gallery.classList.toggle("open");
+        btn.textContent = gallery.classList.contains("open") ? "Ocultar interior" : "Ver interior";
+      });
+    });
+
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const close = document.getElementById("close");
+
+    document.addEventListener("click", e => {
+      if (e.target.matches("img")) {
+        modalImg.src = e.target.src;
+        modal.classList.add("open");
+      }
+    });
+
+    function cerrarModal() {
+      modal.classList.remove("open");
+      modalImg.src = "";
+    }
+
+    close.addEventListener("click", cerrarModal);
+    modal.addEventListener("click", e => {
+      if (e.target === modal) cerrarModal();
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") cerrarModal();
+    });
+  </script>
+</body>
+</html>
