@@ -418,7 +418,6 @@
           <div class="tags">
             <span class="tag">tradicional</span><span class="tag">luminoso</span><span class="tag">soft</span>
           </div>
-          <button>Ver interior</button>
 <div class="actions">
   <button>Ver interior</button>
   <a class="amazon-btn" href="https://www.amazon.es/s?k=The+Art+of+Home+Shea+McGee" target="_blank">
@@ -472,7 +471,6 @@
           <div class="tags">
             <span class="tag">mediterráneo</span><span class="tag">piedra</span><span class="tag">cal blanca</span>
           </div>
-          <button>Ver interior</button>
 <div class="actions">
   <button>Ver interior</button>
 <a class="amazon-btn"
@@ -530,7 +528,7 @@ Ver en amazon
           return;
         }
 
-        img.src = `./imagenes/${nombre}.${extensiones[i]}`;
+        img.src = `${nombre}.${extensiones[i]}`
         i++;
       }
 
