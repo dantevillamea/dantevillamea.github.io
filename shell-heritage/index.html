@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shell Heritage · Tu recarga</title>
+  <meta name="description" content="Demo interactiva de carga inductiva en Shell Heritage, Buenos Aires. Proyecto académico de Dante Villamea.">
+  <meta name="theme-color" content="#0b2225">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside class="hero" aria-label="Shell Heritage">
+      <img class="hero-img" src="assets/heritage.webp" alt="Edificio Shell Heritage con dos niveles de estacionamiento y carga">
+      <div class="hero-shade" aria-hidden="true"></div>
+
+      <div class="hero-top">
+        <a class="brand" href="#">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+          <span class="brand-text">Shell<b>Recharge</b></span>
+        </a>
+        <span class="chip chip-glass"><i class="dot"></i>Demo interactiva</span>
+      </div>
+
+      <div class="hero-copy">
+        <span class="eyebrow">Heritage · Buenos Aires</span>
+        <h1>Una pausa.<br><em>Más energía.</em></h1>
+        <p>Tu próximo recorrido empieza acá.</p>
+      </div>
+
+      <ul class="hero-stats">
+        <li><strong>10</strong><span>plazas de carga</span></li>
+        <li><strong>0</strong><span>cables</span></li>
+        <li><strong>4</strong><span>niveles</span></li>
+      </ul>
+
+      <footer class="hero-foot">
+        <span>Av. Pueyrredón y Av. Santa Fe · CABA</span>
+        <span>Proyecto académico · Dante Villamea</span>
+      </footer>
+    </aside>
+
+    <main class="app">
+      <header class="app-head">
+        <a class="brand brand-dark mobile-only" href="#">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+          <span class="brand-text">Shell<b>Recharge</b></span>
+        </a>
+        <span class="live desktop-only"><i class="dot"></i>Heritage · 10 plazas en el proyecto</span>
+        <button class="ghost" id="reset" type="button">Reiniciar <span aria-hidden="true">↺</span></button>
+      </header>
+
+      <div class="mobile-hero mobile-only">
+        <img src="assets/heritage.webp" alt="Fachada Shell Heritage">
+        <div>
+          <span class="eyebrow">Heritage · Buenos Aires</span>
+          <strong>Una pausa. <em>Más energía.</em></strong>
+        </div>
+      </div>
+
+      <nav class="tabs" aria-label="Secciones">
+        <span class="tabs-pill" aria-hidden="true"></span>
+        <button type="button" data-tab="charge" class="active">Mi recarga</button>
+        <button type="button" data-tab="place">El lugar</button>
+        <button type="button" data-tab="help">Ayuda</button>
+      </nav>
+
+      <div id="content" aria-live="polite"></div>
+
+      <p class="demo-note">Simulación para presentación. No controla equipos ni realiza cobros.</p>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
