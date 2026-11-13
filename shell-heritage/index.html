@@ -2,76 +2,74 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <title>Shell Heritage · Tu recarga</title>
-  <meta name="description" content="Demo interactiva de carga inductiva en Shell Heritage, Buenos Aires. Proyecto académico de Dante Villamea.">
+  <meta name="description" content="Prototipo de la app de carga inductiva de Shell Heritage, Buenos Aires. Proyecto académico de Dante Villamea.">
   <meta name="theme-color" content="#0b2225">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="layout">
-    <aside class="hero" aria-label="Shell Heritage">
-      <img class="hero-img" src="assets/heritage.webp" alt="Edificio Shell Heritage con dos niveles de estacionamiento y carga">
-      <div class="hero-shade" aria-hidden="true"></div>
-
-      <div class="hero-top">
-        <a class="brand" href="#">
-          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
-          <span class="brand-text">Shell<b>Recharge</b></span>
-        </a>
-        <span class="chip chip-glass"><i class="dot"></i>Demo interactiva</span>
+  <canvas id="dither" aria-hidden="true"></canvas>
+  <div class="stage">
+    <aside class="intro" aria-label="Sobre el proyecto">
+      <div class="intro-brand">
+        <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+        <span class="mono">SHELL HERITAGE / PROTOTIPO APP</span>
       </div>
+      <h1>Una pausa.<br><em>Más energía.</em></h1>
+      <p class="intro-lead">La app que acompaña la visita a Shell Heritage, en Av. Pueyrredón y Av. Santa Fe: pedís el ingreso desde la calle, subís por turnos, alineás el auto sobre la placa y aprovechás la espera mientras carga.</p>
 
-      <div class="hero-copy">
-        <span class="eyebrow">Heritage · Buenos Aires</span>
-        <h1>Una pausa.<br><em>Más energía.</em></h1>
-        <p>Tu próximo recorrido empieza acá.</p>
-      </div>
+      <section class="presenter" aria-label="Modo presentación">
+        <div class="presenter-head"><span class="mono">MODO PRESENTACIÓN</span><button class="link" type="button" data-action="reset">Reiniciar ↺</button></div>
+        <p class="presenter-hint">Simulá un imprevisto para mostrar cómo responde la app.</p>
+        <div class="presenter-btns">
+          <button type="button" data-event="misalign"><i>⌖</i>Desalineación</button>
+          <button type="button" data-event="interrupt"><i>ϟ</i>Carga interrumpida</button>
+          <button type="button" data-event="busy"><i>◷</i>Recorrido ocupado</button>
+        </div>
+        <div class="presenter-jump">
+          <span class="mono">IR A</span>
+          <button type="button" data-jump="home">Inicio</button>
+          <button type="button" data-jump="align">Alinear</button>
+          <button type="button" data-jump="charging">Carga</button>
+          <button type="button" data-jump="exitQueue">Salida</button>
+        </div>
+      </section>
 
-      <ul class="hero-stats">
-        <li><strong>10</strong><span>plazas de carga</span></li>
-        <li><strong>0</strong><span>cables</span></li>
-        <li><strong>4</strong><span>niveles</span></li>
-      </ul>
-
-      <footer class="hero-foot">
-        <span>Av. Pueyrredón y Av. Santa Fe · CABA</span>
-        <span>Proyecto académico · Dante Villamea</span>
-      </footer>
+      <footer class="intro-foot mono">PROYECTO ACADÉMICO · DANTE VILLAMEA · LIC. EN DISEÑO<br>SIMULACIÓN: NO CONTROLA EQUIPOS NI REALIZA COBROS</footer>
     </aside>
 
-    <main class="app">
-      <header class="app-head">
-        <a class="brand brand-dark mobile-only" href="#">
-          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
-          <span class="brand-text">Shell<b>Recharge</b></span>
-        </a>
-        <span class="live desktop-only"><i class="dot"></i>Heritage · 10 plazas en el proyecto</span>
-        <button class="ghost" id="reset" type="button">Reiniciar <span aria-hidden="true">↺</span></button>
-      </header>
-
-      <div class="mobile-hero mobile-only">
-        <img src="assets/heritage.webp" alt="Fachada Shell Heritage">
-        <div>
-          <span class="eyebrow">Heritage · Buenos Aires</span>
-          <strong>Una pausa. <em>Más energía.</em></strong>
+    <div class="device-wrap">
+      <div class="device" id="device">
+        <div class="island" id="island" role="status" aria-live="polite">
+          <div class="island-content" id="islandContent"></div>
         </div>
+        <div class="statusbar" aria-hidden="true">
+          <span id="clock">9:41</span>
+          <span class="sb-icons"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor"/><rect x="2" y="2" width="16" height="8" rx="1.6"/><rect x="23.5" y="4" width="2" height="4" rx="1"/></svg></span>
+        </div>
+        <header class="app-head">
+          <div class="app-brand">
+            <span class="mark sm" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+            <span><small>Shell</small>Recharge</span>
+          </div>
+          <span class="loc"><i class="dot"></i>Heritage · Recoleta</span>
+        </header>
+        <main class="screen" id="screen" tabindex="-1">
+          <div id="view"></div>
+        </main>
+        <nav class="tabbar" aria-label="Secciones">
+          <button type="button" data-tab="charge" class="on"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span>Recarga</span></button>
+          <button type="button" data-tab="building"><svg viewBox="0 0 24 24"><path d="M4 21V5l8-3 8 3v16M4 21h16M9 21v-4h6v4M8 8h2M14 8h2M8 12h2M14 12h2"/></svg><span>Edificio</span></button>
+          <button type="button" data-tab="help"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 0 1 5 .9c0 1.7-2.5 2.2-2.5 3.9M12 17h.01"/></svg><span>Ayuda</span></button>
+          <span class="tab-ind" aria-hidden="true"></span>
+        </nav>
+        <div class="home-ind" aria-hidden="true"></div>
       </div>
-
-      <nav class="tabs" aria-label="Secciones">
-        <span class="tabs-pill" aria-hidden="true"></span>
-        <button type="button" data-tab="charge" class="active">Mi recarga</button>
-        <button type="button" data-tab="place">El lugar</button>
-        <button type="button" data-tab="help">Ayuda</button>
-      </nav>
-
-      <div id="content" aria-live="polite"></div>
-
-      <p class="demo-note">Simulación para presentación. No controla equipos ni realiza cobros.</p>
-    </main>
+    </div>
   </div>
   <script src="app.js"></script>
 </body>
