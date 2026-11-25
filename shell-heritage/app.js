@@ -61,6 +61,16 @@ const car = (w = 56, h = 108) => `<svg viewBox="0 0 54 104" width="${w}" height=
   <rect x="8" y="96" width="10" height="3" rx="1.5" fill="#dd1d21"/><rect x="36" y="96" width="10" height="3" rx="1.5" fill="#dd1d21"/>
 </svg>`;
 
+const charger = () => `<svg class="charger" viewBox="0 0 200 196" aria-hidden="true">
+  <rect x="20" y="14" width="26" height="46" rx="7" fill="#e9e4d8"/><rect x="25" y="20" width="16" height="10" rx="3" fill="#15130f"/>
+  <circle cx="33" cy="44" r="5" fill="#fbce07"/><circle cx="33" cy="44" r="2" fill="#dd1d21"/>
+  <path class="cable-on" d="M33 60 C 33 96, 58 70, 73 82" fill="none" stroke="#15130f" stroke-width="5" stroke-linecap="round"/>
+  <path class="cable-on flow" d="M33 60 C 33 96, 58 70, 73 82" fill="none" stroke="#34d6c6" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 7"/>
+  <rect class="cable-on" x="68" y="77" width="10" height="10" rx="3" fill="#fbce07"/>
+  <path class="cable-off" d="M33 60 C 30 100, 44 124, 38 150" fill="none" stroke="#15130f" stroke-width="5" stroke-linecap="round"/>
+  <rect class="cable-off" x="33" y="148" width="10" height="12" rx="3" fill="#fbce07"/>
+</svg>`;
+
 /* ---------- Pieces ---------- */
 const btn = (label, action, kind = 'primary', arrow = false, extra = '') =>
   `<button type="button" class="btn btn-${kind}" data-action="${action}" ${extra}>${label}${arrow ? ' <span class="arrow" aria-hidden="true">→</span>' : ''}</button>`;
@@ -85,7 +95,7 @@ function sHome() {
   <div class="hero-card"><img src="assets/heritage.webp" alt="Fachada de Shell Heritage">
     <div class="hc"><div><b>Una pausa. <em>Más energía.</em></b><small>Av. Pueyrredón y Av. Santa Fe</small></div><span class="live"><i class="dot"></i>${Object.values(LEVELS).reduce((a, l) => a + l.total - l.busy, 0)} plazas libres</span></div>
   </div>
-  ${head('Tu próxima recarga', 'Sin cables, <em>sin apuro.</em>', '')}
+  ${head('Tu próxima recarga', 'Conectá y <em>hacé una pausa.</em>', '')}
   <div class="card">
     <div class="row between" style="margin-bottom:10px"><span class="label" id="lvLabel">Dónde querés cargar</span><span class="sub">En vivo</span></div>
     <div class="levels" role="radiogroup" aria-labelledby="lvLabel">
@@ -103,7 +113,7 @@ function sHome() {
     <input class="range" id="goal" type="range" min="50" max="100" step="5" value="${state.target}" style="--fill:${fill}%">
     <div class="ticks"><span>50</span><span>75</span><span>100</span></div>
   </div>
-  ${note('Para esta demo usamos un vehículo compatible con carga inductiva. Partís de 32 % de batería.')}
+  ${note('Para esta demo usamos un auto eléctrico con conector estándar. Partís de 32 % de batería.')}
   ${btn('Solicitar ingreso', 'request', 'primary', true)}`;
 }
 
@@ -158,18 +168,18 @@ function sElevator(down) {
   <p class="hint" id="elevHint">Puertas cerradas · en movimiento</p>`;
 }
 
-const CHECKS = ['Vehículo detenido', 'Receptor sobre la placa', 'Conexión inductiva lista'];
+const CHECKS = ['Vehículo detenido', 'Cable conectado', 'Cargador listo'];
 function sAlign() {
-  const ev = state.event === 'misalign';
+  const ev = state.event === 'unplug';
   return `${stepper()}
-  ${ev ? `<div class="event"><div class="e-ic">⌖</div><h3>Tu vehículo se movió</h3><p>El sensor perdió la posición. Reubicá el auto sobre la placa y volvemos a verificar.</p></div>` :
-    head('Iniciar la carga', 'Todo listo para <em>cargar.</em>', 'Estacionaste sobre la placa. Verificamos la posición y confirmás el inicio desde el celular.', '03')}
+  ${ev ? `<div class="event"><div class="e-ic">⌁</div><h3>Se desconectó el cable</h3><p>El cargador dejó de detectar el conector. Volvé a enchufarlo en el auto y verificamos de nuevo.</p></div>` :
+    head('Iniciar la carga', 'Todo listo para <em>cargar.</em>', 'Conectá el cable del cargador a tu auto. Cuando lo detectamos, iniciás la carga desde el celular.', '03')}
   <div class="bay-card scanning" id="bayCard">
     <div class="row between"><span class="label">Plaza ${spot()}</span><span class="label" id="scanLabel">Verificando…</span></div>
-    <div class="bay" id="bay" style="--offset:${ev ? 26 : 0}px"><span class="ring-top"></span><div class="pad"></div><div class="vehicle" id="vehicle" role="presentation">${car()}</div><span class="scan" aria-hidden="true"></span></div>
+    <div class="bay ${ev ? 'unplugged' : ''}" id="bay"><span class="ring-top"></span><div class="vehicle" id="vehicle" role="presentation">${car()}</div>${charger()}<span class="scan" aria-hidden="true"></span></div>
     <ul class="checks" id="checks" aria-live="polite">${CHECKS.map((c, i) => `<li data-i="${i}"><span class="ck" aria-hidden="true"></span><span>${c}</span></li>`).join('')}</ul>
   </div>
-  ${ev ? btn('Ya reubiqué el auto', 'rescan', 'dark', true) :
+  ${ev ? btn('Ya conecté el cable', 'rescan', 'dark', true) :
     `<button type="button" class="btn btn-primary start-btn" data-action="start">${ic.bolt.replace('<svg', '<svg class="start-ic" aria-hidden="true"')}${state.startedAt ? 'Reanudar carga' : 'Iniciar carga'}</button>`}
   <p class="hint">Con el vehículo detenido y el freno de mano puesto.</p>`;
 }
@@ -273,7 +283,7 @@ function sBuilding() {
     let detail = '';
     if (f.id === '03') detail = `<div class="rooms">${ROOMS.map(r => `<button type="button" class="room ${state.rooms.includes(r.n) ? 'visited' : ''}" data-action="visit" data-room="${r.n}"><span class="r-n">SALA ${r.n}</span><b>${r.name}</b><small>${r.info} · ${r.d} min</small></button>`).join('')}</div>`;
     if (f.id === 'PB') detail = `<div class="menu">${MENU.map(m => `<div class="menu-item"><div><b>${m.name}</b><small>Retirás en el mostrador · ${m.t} min</small></div><button type="button" class="mini" data-action="order" data-item="${m.id}" ${state.orders.includes(m.id) ? 'disabled' : ''}>${state.orders.includes(m.id) ? 'Pedido' : 'Pedir'}</button></div>`).join('')}</div>`;
-    if (f.id === '01' || f.id === '02') detail = `<div class="menu"><div class="menu-item"><div><b>Plazas ${f.id}·01 a ${f.id}·04</b><small>Carga inductiva · anillo de luz sobre cada plaza</small></div></div></div>`;
+    if (f.id === '01' || f.id === '02') detail = `<div class="menu"><div class="menu-item"><div><b>Plazas ${f.id}·01 a ${f.id}·04</b><small>Carga por cable · anillo de luz sobre cada plaza</small></div></div></div>`;
     return `<li><button type="button" class="floor ${f.cls || ''} ${open ? 'open' : ''}" data-action="toggleFloor" data-floor="${f.id}" aria-expanded="${open}"><span class="lvl">${f.id}</span><span><b>${f.b}</b><small>${f.s}</small></span><span class="tags">${tags.join('')}</span></button>
       <div class="floor-detail ${open ? 'open' : ''}"><div>${detail}</div></div></li>`;
   }).join('')}</ul>
@@ -284,7 +294,7 @@ function sBuilding() {
 /* ---------- Help tab ---------- */
 function sHelp() {
   const faq = [
-    ['¿Mi vehículo es compatible?', 'La carga inductiva requiere un receptor compatible instalado en el vehículo. Esta demo representa una propuesta académica, no un servicio operativo.'],
+    ['¿Mi vehículo es compatible?', 'Cada plaza tiene un cargador con cable y conector estándar para autos eléctricos. Esta demo representa una propuesta académica, no un servicio operativo.'],
     ['¿Cómo funciona el ingreso?', 'Esperás en la calle con balizas en la zona de espera y pedís ingreso desde la app. Con el turno habilitado, girás 90° y entrás al elevador. Un movimiento autorizado a la vez.'],
     ['¿Qué muestra el anillo?', 'Avanza desde el nivel inicial hasta el objetivo que elegiste. Completo significa que alcanzaste tu objetivo, no necesariamente el 100 %.'],
     ['¿Cómo es la salida?', 'En los niveles superiores pedís turno y esperás en tu plaza hasta que se habilite el elevador. En planta baja salís directamente desde la plaza.']
@@ -294,7 +304,7 @@ function sHelp() {
   ${faq.map(([q, a], i) => `<details${i === 0 ? ' open' : ''}><summary>${q}</summary><p>${a}</p></details>`).join('')}
   <h3 class="section-t">Si algo cambia · simulá un imprevisto</h3>
   <div class="sim">
-    <button type="button" data-event="misalign"><i>⌖</i>Desalineación</button>
+    <button type="button" data-event="unplug"><i>⌁</i>Cable desconectado</button>
     <button type="button" data-event="interrupt"><i>ϟ</i>Interrupción</button>
     <button type="button" data-event="busy"><i>◷</i>Recorrido ocupado</button>
   </div>
@@ -375,20 +385,20 @@ let scanTimers = [];
 function initAlign() {
   scanTimers.forEach(clearTimeout); scanTimers = [];
   const card = $('#bayCard'), items = $$('#checks li');
-  const misplaced = state.event === 'misalign';
-  state.aligned = !misplaced;           // sin acción de alinear: se puede iniciar de entrada
+  const misplaced = state.event === 'unplug';
+  state.aligned = !misplaced;           // el cable se detecta solo: se puede iniciar de entrada
   const step = RM.matches ? 60 : 260;
   items.forEach((li, i) => scanTimers.push(setTimeout(() => {
     if (misplaced && i === 1) {
-      li.classList.add('bad'); li.lastElementChild.textContent = 'Receptor fuera de la placa';
-      card.classList.remove('scanning'); $('#scanLabel').textContent = 'Revisá la posición';
+      li.classList.add('bad'); li.lastElementChild.textContent = 'Cable desconectado';
+      card.classList.remove('scanning'); $('#scanLabel').textContent = 'Revisá el cable';
       vibrate([60, 40, 60]); return;
     }
     if (misplaced && i > 1) return;
     li.classList.add('ok');
     if (i === items.length - 1) {
       card.classList.remove('scanning'); card.classList.add('locked');
-      $('#scanLabel').textContent = 'Posición correcta';
+      $('#scanLabel').textContent = 'Listo para cargar';
       vibrate([20, 30, 20]);
     }
   }, 200 + i * step)));
@@ -503,7 +513,7 @@ function action(a, el) {
     case 'rescan': s.event = null; render(); break;
     case 'start':
       if (!s.aligned) return;
-      if (s.startedAt) { s.paused = false; notify('Carga reanudada', 'El receptor volvió a estar sobre la placa', 'glow', '✓'); }
+      if (s.startedAt) { s.paused = false; notify('Carga reanudada', 'El cable volvió a conectarse', 'glow', '✓'); }
       else { s.startedAt = Date.now(); notify('Carga iniciada', `Te avisamos cuando llegues a ${s.target} %`, 'glow', 'ϟ'); }
       go('charging'); break;
     case 'advance': if (!s.paused) { s.battery = Math.min(s.target, s.battery + 12); checkDone(); render(); } break;
@@ -563,10 +573,10 @@ function scheduleExit() {
 /* ---------- "Si algo cambia" ---------- */
 function simulate(ev) {
   const s = state;
-  if (ev === 'misalign') {
+  if (ev === 'unplug') {
     if (s.stage !== 'charging' && s.stage !== 'align') { s.startedAt = s.startedAt || Date.now(); s.battery = Math.max(s.battery, 46); }
-    s.event = 'misalign'; s.paused = true; s.aligned = false; go('align');
-    notify('Desalineación detectada', 'Reubicá el vehículo sobre la placa', 'warn', '⌖');
+    s.event = 'unplug'; s.paused = true; s.aligned = false; go('align');
+    notify('Cable desconectado', 'Volvé a conectar el cargador a tu auto', 'warn', '⌁');
   } else if (ev === 'interrupt') {
     if (s.stage !== 'charging') { s.startedAt = s.startedAt || Date.now(); s.battery = Math.max(s.battery, 46); s.aligned = true; }
     s.event = 'interrupt'; s.paused = true; go('charging');

@@ -526,3 +526,14 @@ button:focus-visible, summary:focus-visible, a:focus-visible { outline: 3px soli
 .bay-card .vehicle { cursor: default; transition: margin-left .8s var(--spring); }
 .start-btn { font-size: 17px; padding: 20px; }
 .start-btn .start-ic { width: 20px; height: 20px; color: var(--red); }
+
+/* ---------- Carga por cable ---------- */
+.bay .charger { position: absolute; top: 0; left: 50%; width: 200px; height: 100%; margin-left: -100px; z-index: 2; pointer-events: none; }
+.bay .vehicle { top: 56%; }
+.charger .cable-off { display: none; }
+.bay.unplugged .charger .cable-on { display: none; }
+.bay.unplugged .charger .cable-off { display: inline; }
+.charger .flow { opacity: 0; }
+.bay-card.locked .charger .flow { opacity: 1; animation: flow .9s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -20; } }
+.bay-card.locked .ring-top { border-color: var(--glow); box-shadow: 0 0 22px var(--glow), inset 0 0 10px var(--glow); }
