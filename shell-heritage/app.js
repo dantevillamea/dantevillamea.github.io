@@ -655,7 +655,7 @@ clock(); setInterval(clock, 20000);
   const ctx = cv.getContext('2d');
   const img = new Image(); img.src = 'assets/heritage.webp';
   const bayer = [0, 32, 8, 40, 2, 34, 10, 42, 48, 16, 56, 24, 50, 18, 58, 26, 12, 44, 4, 36, 14, 46, 6, 38, 60, 28, 52, 20, 62, 30, 54, 22, 3, 35, 11, 43, 1, 33, 9, 41, 51, 19, 59, 27, 49, 17, 57, 25, 15, 47, 7, 39, 13, 45, 5, 37, 63, 31, 55, 23, 61, 29, 53, 21];
-  let lum = null, cols = 0, rows = 0, cell = 6, mx = -1e4, my = -1e4, sx = -1e4, sy = -1e4, raf = 0;
+  let lum = null, cols = 0, rows = 0, cell = 9, mx = -1e4, my = -1e4, sx = -1e4, sy = -1e4, raf = 0;
   const setup = () => {
     const w = innerWidth, h = innerHeight, dpr = Math.min(2, devicePixelRatio || 1);
     cv.width = w * dpr; cv.height = h * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -673,16 +673,18 @@ clock(); setInterval(clock, 20000);
     raf = 0;
     sx += (mx - sx) * .18; sy += (my - sy) * .18;
     const w = innerWidth, h = innerHeight;
-    ctx.fillStyle = '#17110a'; ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#15100a'; ctx.fillRect(0, 0, w, h);
     for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-      let v = lum[y * cols + x] * .78;
+      const ex = Math.abs(x / cols - .5) * 2, ey = Math.abs(y / rows - .5) * 2;
+      const edge = Math.min(1, Math.max(0, Math.max(ex, ey) - .35) / .65);   // más denso en los bordes, limpio al centro
+      let v = lum[y * cols + x] * .5 * edge;
       const dx = x * cell - sx, dy = y * cell - sy, dist = Math.hypot(dx, dy);
-      const spot = Math.max(0, 1 - dist / 260);
-      v += spot * .45;
+      const spot = Math.max(0, 1 - dist / 220);
+      v += spot * spot * .35;
       const th = (bayer[(y % 8) * 8 + (x % 8)] + .5) / 64;
       if (v > th) {
-        ctx.fillStyle = spot > .25 ? (v > .9 ? '#fff3c8' : '#fbce07') : v > .82 ? '#e8c46a' : v > .55 ? '#8a6a35' : '#4a3a22';
-        ctx.fillRect(x * cell + 1, y * cell + 1, cell - 2, cell - 2);
+        ctx.fillStyle = spot > .35 ? 'rgba(251, 206, 7, .55)' : v > .45 ? '#4d3c20' : '#30261a';
+        ctx.fillRect(x * cell + 3, y * cell + 3, cell - 6, cell - 6);
       }
     }
     if (Math.abs(mx - sx) + Math.abs(my - sy) > 1 && !RM.matches) raf = requestAnimationFrame(draw);
