@@ -24,13 +24,13 @@ const MENU = [
   { id: 'medialunas', name: 'Medialunas x2', t: 2 },
   { id: 'agua', name: 'Agua mineral', t: 1 }
 ];
-const STEPS = ['Ingreso', 'Acceso', 'Alinear', 'Carga', 'Salida'];
+const STEPS = ['Ingreso', 'Acceso', 'Iniciar', 'Carga', 'Salida'];
 const STEP_OF = { home: 0, queue: 0, access: 1, elevator: 1, align: 2, charging: 3, exitQueue: 4, elevatorDown: 4, exit: 4, summary: 5 };
 const ORDER = ['home', 'queue', 'access', 'elevator', 'align', 'charging', 'exitQueue', 'elevatorDown', 'exit', 'summary'];
 
 const fresh = () => ({
   stage: 'home', level: '01', target: 80, battery: START,
-  queue: 2, queueMax: 2, qTimer: 0, position: -8, aligned: false,
+  queue: 2, queueMax: 2, qTimer: 0, aligned: false,
   paused: false, event: null, reconnecting: false, notified: false,
   exitQ: 1, exitReady: false, rooms: [], orders: [], openFloor: '03', startedAt: null
 });
@@ -158,20 +158,20 @@ function sElevator(down) {
   <p class="hint" id="elevHint">Puertas cerradas · en movimiento</p>`;
 }
 
+const CHECKS = ['Vehículo detenido', 'Receptor sobre la placa', 'Conexión inductiva lista'];
 function sAlign() {
   const ev = state.event === 'misalign';
   return `${stepper()}
-  ${ev ? `<div class="event"><div class="e-ic">⌖</div><h3>Tu vehículo se movió</h3><p>El sensor perdió la posición. Reubicá el auto sobre la placa para continuar la carga.</p></div>` :
-    head('Preparar la carga', 'Alineá tu <em>vehículo.</em>', 'Seguí la guía luminosa hasta ubicar el receptor sobre la placa.', '03')}
-  <div class="bay-card" id="bayCard">
-    <div class="row between"><span class="label">Vista superior</span><span class="label">Plaza ${spot()}</span></div>
-    <div class="bay" id="bay"><span class="ring-top"></span><div class="pad"></div><div class="vehicle" id="vehicle" role="presentation">${car()}</div><span class="chev">︿︿</span></div>
-    <label class="label" for="position" style="display:block;margin-bottom:4px">Arrastrá el auto o usá el control</label>
-    <input class="range" type="range" id="position" min="-10" max="10" step="1" value="${state.position}">
-    <output id="sensor" for="position"></output>
+  ${ev ? `<div class="event"><div class="e-ic">⌖</div><h3>Tu vehículo se movió</h3><p>El sensor perdió la posición. Reubicá el auto sobre la placa y volvemos a verificar.</p></div>` :
+    head('Iniciar la carga', 'Todo listo para <em>cargar.</em>', 'Estacionaste sobre la placa. Verificamos la posición y confirmás el inicio desde el celular.', '03')}
+  <div class="bay-card scanning" id="bayCard">
+    <div class="row between"><span class="label">Plaza ${spot()}</span><span class="label" id="scanLabel">Verificando…</span></div>
+    <div class="bay" id="bay" style="--offset:${ev ? 26 : 0}px"><span class="ring-top"></span><div class="pad"></div><div class="vehicle" id="vehicle" role="presentation">${car()}</div><span class="scan" aria-hidden="true"></span></div>
+    <ul class="checks" id="checks" aria-live="polite">${CHECKS.map((c, i) => `<li data-i="${i}"><span class="ck" aria-hidden="true"></span><span>${c}</span></li>`).join('')}</ul>
   </div>
-  <button type="button" class="btn btn-primary" data-action="start" disabled>${state.startedAt ? 'Reanudar carga' : 'Iniciar carga'} <span class="arrow" aria-hidden="true">→</span></button>
-  <p class="hint">Confirmá con el vehículo detenido y el freno de mano puesto.</p>`;
+  ${ev ? btn('Ya reubiqué el auto', 'rescan', 'dark', true) :
+    `<button type="button" class="btn btn-primary start-btn" data-action="start">${ic.bolt.replace('<svg', '<svg class="start-ic" aria-hidden="true"')}${state.startedAt ? 'Reanudar carga' : 'Iniciar carga'}</button>`}
+  <p class="hint">Con el vehículo detenido y el freno de mano puesto.</p>`;
 }
 
 function sCharging() {
@@ -370,33 +370,28 @@ function notify(title, text, kind = '', icon = 'ϟ') {
 }
 $('#island').addEventListener('click', () => $('#island').classList.remove('open'));
 
-/* ---------- Align (drag + slider) ---------- */
+/* ---------- Iniciar carga: el sensor verifica solo, el usuario solo confirma ---------- */
+let scanTimers = [];
 function initAlign() {
-  const range = $('#position'), veh = $('#vehicle'), bay = $('#bay');
-  const update = () => {
-    const was = state.aligned;
-    state.aligned = Math.abs(state.position) <= 1;
-    bay.style.setProperty('--offset', state.position * 6 + 'px');
-    range.value = state.position;
-    $('#bayCard').classList.toggle('locked', state.aligned);
-    const sensor = $('#sensor');
-    sensor.classList.toggle('ok', state.aligned);
-    sensor.innerHTML = state.aligned ? `<span style="width:16px;height:16px;display:inline-flex">${ic.check}</span>Posición correcta · listo para cargar`
-      : state.position < 0 ? 'Desplazá el auto hacia la derecha →' : '← Desplazá el auto hacia la izquierda';
-    $('[data-action="start"]').disabled = !state.aligned;
-    if (state.aligned && !was) { vibrate([20, 30, 20]); }
-  };
-  range.addEventListener('input', () => { state.position = +range.value; update(); });
-  let dragX = null, startPos = 0;
-  veh.addEventListener('pointerdown', e => { dragX = e.clientX; startPos = state.position; veh.classList.add('dragging'); veh.setPointerCapture(e.pointerId); });
-  veh.addEventListener('pointermove', e => {
-    if (dragX === null) return;
-    state.position = Math.max(-10, Math.min(10, Math.round(startPos + (e.clientX - dragX) / 6)));
-    update();
-  });
-  const end = () => { dragX = null; veh.classList.remove('dragging'); };
-  veh.addEventListener('pointerup', end); veh.addEventListener('pointercancel', end);
-  update();
+  scanTimers.forEach(clearTimeout); scanTimers = [];
+  const card = $('#bayCard'), items = $$('#checks li');
+  const misplaced = state.event === 'misalign';
+  state.aligned = !misplaced;           // sin acción de alinear: se puede iniciar de entrada
+  const step = RM.matches ? 60 : 260;
+  items.forEach((li, i) => scanTimers.push(setTimeout(() => {
+    if (misplaced && i === 1) {
+      li.classList.add('bad'); li.lastElementChild.textContent = 'Receptor fuera de la placa';
+      card.classList.remove('scanning'); $('#scanLabel').textContent = 'Revisá la posición';
+      vibrate([60, 40, 60]); return;
+    }
+    if (misplaced && i > 1) return;
+    li.classList.add('ok');
+    if (i === items.length - 1) {
+      card.classList.remove('scanning'); card.classList.add('locked');
+      $('#scanLabel').textContent = 'Posición correcta';
+      vibrate([20, 30, 20]);
+    }
+  }, 200 + i * step)));
 }
 
 /* ---------- Ring + energy canvas ---------- */
@@ -505,9 +500,10 @@ function action(a, el) {
     case 'toAccess': go('access'); break;
     case 'toElevator': go('elevator'); break;
     case 'toAlign': go('align'); break;
+    case 'rescan': s.event = null; render(); break;
     case 'start':
       if (!s.aligned) return;
-      if (s.event === 'misalign') { s.event = null; s.paused = false; notify('Carga reanudada', 'El receptor volvió a estar alineado', 'glow', '✓'); }
+      if (s.startedAt) { s.paused = false; notify('Carga reanudada', 'El receptor volvió a estar sobre la placa', 'glow', '✓'); }
       else { s.startedAt = Date.now(); notify('Carga iniciada', `Te avisamos cuando llegues a ${s.target} %`, 'glow', 'ϟ'); }
       go('charging'); break;
     case 'advance': if (!s.paused) { s.battery = Math.min(s.target, s.battery + 12); checkDone(); render(); } break;
@@ -523,7 +519,7 @@ function action(a, el) {
     case 'toElevatorDown': go('elevatorDown'); break;
     case 'toExit': go('exit'); break;
     case 'complete': go('summary'); break;
-    case 'reset': elevTimers.forEach(clearTimeout); state = fresh(); shownBattery = START; tab = 'charge'; render(); break;
+    case 'reset': elevTimers.forEach(clearTimeout); scanTimers.forEach(clearTimeout); state = fresh(); shownBattery = START; tab = 'charge'; render(); break;
     case 'toBuilding': tab = 'building'; render(); break;
     case 'toCharge': tab = 'charge'; render(); break;
     case 'goFloor': state.openFloor = el.dataset.floor; tab = 'building'; render(); break;
@@ -569,10 +565,10 @@ function simulate(ev) {
   const s = state;
   if (ev === 'misalign') {
     if (s.stage !== 'charging' && s.stage !== 'align') { s.startedAt = s.startedAt || Date.now(); s.battery = Math.max(s.battery, 46); }
-    s.event = 'misalign'; s.paused = true; s.position = 6; s.aligned = false; go('align');
+    s.event = 'misalign'; s.paused = true; s.aligned = false; go('align');
     notify('Desalineación detectada', 'Reubicá el vehículo sobre la placa', 'warn', '⌖');
   } else if (ev === 'interrupt') {
-    if (s.stage !== 'charging') { s.startedAt = s.startedAt || Date.now(); s.battery = Math.max(s.battery, 46); s.position = 0; s.aligned = true; }
+    if (s.stage !== 'charging') { s.startedAt = s.startedAt || Date.now(); s.battery = Math.max(s.battery, 46); s.aligned = true; }
     s.event = 'interrupt'; s.paused = true; go('charging');
     notify('Carga interrumpida', 'Tu plaza sigue asignada · reintentá desde la app', 'warn', 'ϟ');
   } else if (ev === 'busy') {
@@ -587,8 +583,7 @@ function jump(st) {
   const s = state;
   if (st === 'home') { action('reset'); return; }
   s.event = null; s.paused = false;
-  if (st === 'align') { s.position = -8; s.aligned = false; }
-  if (st === 'charging') { s.position = 0; s.aligned = true; s.startedAt = s.startedAt || Date.now(); }
+  if (st === 'charging') { s.aligned = true; s.startedAt = s.startedAt || Date.now(); }
   if (st === 'exitQueue') { s.battery = Math.max(s.battery, s.target); s.exitReady = false; s.exitQ = pb() ? 0 : 1; scheduleExit(); }
   go(st);
 }
